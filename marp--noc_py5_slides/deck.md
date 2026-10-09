@@ -4,6 +4,9 @@ theme: TorrensUni
 notes: ...
 ---
 
+https://github.com/nature-of-code/noc-book-2/issues/1122
+
+
 # ***The Nature of Code in Python***
 <!-- 
 _backgroundImage: "url(title_bg.png)"
