@@ -4,10 +4,7 @@ theme: TorrensUni
 notes: ...
 ---
 
-https://github.com/nature-of-code/noc-book-2/issues/1122
-
-
-# ***The Nature of Code in Python***
+# ***The Nature of Code, but Python***
 <!-- 
 _backgroundImage: "url(title_bg.png)"
 _backgroundSize: "cover"
@@ -20,12 +17,59 @@ _color: var(--color-background)
 
 ---
 
-# The Big Picture
+# Introduction
 <!-- 
 paginate: true
 backgroundColor: darkslategrey
 color: var(--color-background)
 -->
+
+---
+
+<!--
+_backgroundColor: white
+_paginate: false
+-->
+![bg contain](intro--book.png)
+> https://tisch.nyu.edu/itp/news/fall-2024/daniel-shiffman--itp-faculty-member--launches-new-book---the-nat
+<!--
+- note this is the 2nd edition (no starch press)
+-->
+
+---
+
+<!--
+_backgroundColor: #EEE
+_paginate: false
+-->
+![bg 70%](intro--py5.png)
+> https://py5coding.org
+
+---
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ---
 
