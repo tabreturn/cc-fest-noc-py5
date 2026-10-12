@@ -34,7 +34,26 @@ _paginate: false
 > https://tisch.nyu.edu/itp/news/fall-2024/daniel-shiffman--itp-faculty-member--launches-new-book---the-nat
 <!--
 - note this is the 2nd edition (no starch press)
+- as audience likely knows, this is js-based
 -->
+
+---
+
+<!--
+_backgroundColor: #EEE
+_paginate: false
+-->
+![bg 70%](intro--01-js-pythos.svg)
+> https://py5coding.org
+
+---
+
+<!--
+_backgroundColor: #EEE
+_paginate: false
+-->
+![bg 70%](intro--02-p5js-py5.svg)
+> https://py5coding.org
 
 ---
 
@@ -47,6 +66,114 @@ _paginate: false
 
 ---
 
+# Introduction » Installation
+
+---
+
+<!--
+_backgroundColor: #EEE
+_paginate: false
+-->
+![bg 70%](setup--01-thonny.org.png)
+> https://thonny.org
+
+---
+
+<!--
+_backgroundColor: #000
+_paginate: false
+-->
+![bg 50%](setup--02-thonny-install.png)
+
+---
+
+<!--
+_backgroundColor: #000
+_paginate: false
+-->
+![bg 50%](setup--03-thonny-1st-launch.png)
+
+---
+
+<!--
+_backgroundColor: #000
+_paginate: false
+-->
+![bg 50%](setup--04-thonny-plugin-step-1.png)
+
+---
+
+<!--
+_backgroundColor: #000
+_paginate: false
+-->
+![bg 50%](setup--05-thonny-plugin-step-2.png)
+
+---
+
+<!--
+_backgroundColor: #000
+_paginate: false
+-->
+![bg 50%](setup--06-thonny-plugin-step-3.png)
+
+---
+
+<!--
+_backgroundColor: #000
+_paginate: false
+-->
+![bg 50%](setup--07-thonny-plugin-restart.png)
+
+---
+
+<!--
+_backgroundColor: #000
+_paginate: false
+-->
+![bg 50%](setup--08-thonny-activate.png)
+
+---
+
+<!--
+_backgroundColor: #000
+_paginate: false
+-->
+![bg 50%](setup--09-thonny-activate-jdk.png)
+
+---
+
+<!--
+_backgroundColor: #000
+_paginate: false
+-->
+![bg 50%](setup--10-thonny-apply-settings.png)
+
+---
+
+<!--
+_backgroundColor: #000
+_paginate: false
+-->
+![bg 50%](setup--11-thonny-applied-settings.png)
+
+---
+
+<!--
+_backgroundColor: #000
+_paginate: false
+-->
+![bg 50%](setup--12-thonny-run.png)
+
+---
+
+<!--
+_backgroundColor: #000
+_paginate: false
+-->
+![bg 50%](setup--13-thonny-run-module.png)
+
+---
 
 
 
