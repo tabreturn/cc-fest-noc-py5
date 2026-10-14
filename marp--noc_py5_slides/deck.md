@@ -34,6 +34,8 @@ _paginate: false
 > https://tisch.nyu.edu/itp/news/fall-2024/daniel-shiffman--itp-faculty-member--launches-new-book---the-nat
 <!--
 - note this is the 2nd edition (no starch press)
+- show of hands: who has worked through any nature of code chapters?
+- for anybody unfamiliar: the book builds up from simple random walks to physics to neural networks & neuroevolution
 - as audience likely knows, this is js-based
 -->
 
@@ -66,7 +68,17 @@ _paginate: false
 
 ---
 
-# Introduction » Installation
+## Introduction » Installation
+
+* Standard Python script (VS Code, PyCharm, terminal, ...)
+* Jupyter Notebook
+* Thonny IDE + py5 plugin
+<!--
+- discuss pros/cons of each:
+- standard -- any editor; requires manual environment/pip setup
+- jupyter -- notebook format mixing different cells; perhaps not your style
+- thonny -- familiar to legacy processing users; not 'browser' based
+-->
 
 ---
 
@@ -130,8 +142,25 @@ _paginate: false
 <!--
 _backgroundColor: #000
 _paginate: false
+_class: lead
+-->
+## ...
+
+---
+
+<!--
+_backgroundColor: #000
+_paginate: false
 -->
 ![bg 50%](setup--08-thonny-activate.png)
+<!--
+- you don't *have to use* imported mode, but this means:
+- no import line(s) required
+- no py5. prefix for every method
+- so, matches* traditional processing and p5.js syntax
+- easier porting (to py5)
+- more beginner-friendly
+-->
 
 ---
 
@@ -140,6 +169,9 @@ _backgroundColor: #000
 _paginate: false
 -->
 ![bg 50%](setup--09-thonny-activate-jdk.png)
+<!--
+- if java is not detected, it'll download and install a local version
+--->
 
 ---
 
@@ -164,6 +196,10 @@ _backgroundColor: #000
 _paginate: false
 -->
 ![bg 50%](setup--12-thonny-run.png)
+<!--
+- just like processing, it has a static mode
+- (of course, there are setup and draw functions for animated sketches)
+-->
 
 ---
 
@@ -171,44 +207,28 @@ _paginate: false
 _backgroundColor: #000
 _paginate: false
 -->
-![bg 50%](setup--13-thonny-run-module.png)
-
----
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
----
-
-## The Big Picture » The Nature of Code
-
-- Daniel Shiffman's book on simulating natural systems (2024 edition)
-- Randomness » vectors » forces » particles » agents » physics » intelligence
-- All examples written in **p5.js** (JavaScript)
+![bg 50%](setup--13-change-mode.png)
 <!--
-- show of hands: who has worked through any nature of code chapters?
-- the book builds up from simple random walks to neural networks and neuroevolution
+- as i mentioned earlier, there is also a module mode
 -->
+
+---
+
+<!--
+_backgroundColor: #000
+_paginate: false
+-->
+![bg 50%](setup--14-thonny-run-module.png)
+<!--
+- note: import line, py5 prefixes, run_sketch method
+-->
+
+---
+
+
+
+
+
 
 ---
 <!--
@@ -261,66 +281,6 @@ def draw():
 
 ---
 
-# Thonny-py5mode
-<!-- 
-backgroundColor: teal
-color: var(--color-background)
--->
-
----
-
-## Thonny-py5mode » The Working Environment
-
-- A plugin that integrates py5 into the **Thonny** Python editor
-- Successor to the Processing IDE's discontinued *Python Mode*
-- Handles setup for you -- installs a Java Runtime Environment (JRE)
-- Officially maintained under the py5 organisation; recommended as *"the best py5 setup for beginners"*
-<!--
-- thonny is a beginner-focused python ide -- the plugin adapts it for creative coding
-- the jre install is automatic, so students never touch java tooling directly
-- full disclosure: thonny-py5mode is my own project, developed as part of my phd research
--->
-
----
-<!--
-_backgroundColor: white
-_paginate: false
--->
-![bg contain](img_thonny_fractal.png)
-<!--
-- thonny-py5mode in use, rendering an l-system fractal
-- editor left, running sketch window right -- the workflow used for every port in this talk
--->
-
----
-
-## Thonny-py5mode » The py5 Menu
-
-![](img_thonny_menu.png)
-
-- Toggle **Imported mode** (no `import` statements or `py5.` prefixes)
-- *Apply recommended py5 settings* -- Processing-inspired editor theme
-- Colour selector, sketch-folder shortcut, links to reference & cheatsheet
-<!--
-- imported mode is what makes the nature of code ports read so cleanly
-- static mode also works: omit setup/draw entirely for non-animated sketches
--->
-
----
-
-## Thonny-py5mode » Editor Support
-
-![](img_thonny_autocomplete.png)
-
-- Autocompletion and syntax highlighting for py5 commands
-- Colour mixer dockable beside the editor
-- Two-page printable **py5 cheatsheet** for quick reference
-<!--
-- highlighting py5 commands reduces syntactic errors for novices
-- the cheatsheet covers sketch structure, colour, 2d primitives, typography, and control flow
--->
-
----
 
 # Direct Translations
 <!-- 
