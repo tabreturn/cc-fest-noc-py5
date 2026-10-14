@@ -451,9 +451,9 @@ def draw():
     global position
     position += velocity
 ```
-- JavaScript closures reassign outer variables freely
-- Python requires `global` for reassignment in `setup()` / `draw()`
 <!--
+- javascript closures reassign outer variables freely
+- python requires global for reassignment in setup() / draw()
 - the single most common porting error: forgetting global, getting UnboundLocalError
 - alternative designs: wrap state in a class, or mutate objects instead of reassigning
 -->
@@ -491,12 +491,10 @@ from pymunk import Body, moment_for_box, Poly, Space
 engine = Space()                          # world/engine = Space
 engine.gravity = (0, 1.0 * SCALE_GRAVITY) # calibration constant
 ```
-- Matter.js is JavaScript-only » **Pymunk** (Chipmunk2D wrapper)
-- Pymunk separates **Body** (physics) from **Shape** (collision skin)
-- No `Render` module -- you draw the bodies yourself in `draw()`
 <!--
-- matter.js bundles a renderer; with pymunk the sketch reads body positions and draws shapes manually
-- body = physics, shape = collision skin; multiple shapes can attach to one body
+- matter.js is javascript-only -- pymunk is a chipmunk2d wrapper
+- pymunk separates body (physics) from shape (collision skin); multiple shapes can attach to one body
+- no render module: matter.js bundles a renderer; with pymunk the sketch reads body positions and draws shapes manually in draw()
 -->
 
 ---
@@ -515,9 +513,9 @@ SCALE_TIME = FPS
 SCALE_VELOCITY = SCALE_TIME
 SCALE_FRICTION = SCALE_TIME
 ```
-- Same simulation *concepts*, different units and solvers
-- Constants make py5 sketches visually match the book's figures
 <!--
+- same simulation concepts, different units and solvers
+- constants make py5 sketches visually match the book's figures
 - this is the real cost of substitution: the api maps, but behavior needs tuning
 - gravity of 1 in matter.js is roughly 900 in pymunk's units at 60fps
 -->
@@ -534,12 +532,11 @@ from toxi.physics2d import VerletPhysics2D, VerletSpring2D
 physics = VerletPhysics2D()
 physics.setWorldBounds(Rect(0, 0, width, height))
 ```
-- toxiclibs.js is a *port* of a Java library -- py5 runs on the JVM
-- So Python can use the **original Java Toxiclibs** directly
-- Java naming leaks through: `setWorldBounds`, `addBehavior`
 <!--
+- toxiclibs.js is a port of a java library -- py5 runs on the jvm
+- so python can use the original java toxiclibs directly
 - this is the surprise win of the jvm: no substitute needed, just the upstream library
-- tradeoff: camelCase java api inside snake_case python code
+- tradeoff: camelCase java naming leaks through (setWorldBounds, addBehavior) inside snake_case python code
 -->
 
 ---
@@ -556,19 +553,20 @@ class Particle:  # Python wrapper around a Java VerletParticle2D
 physics.addParticle(particle_1.p)
 physics.addSpring(VerletSpring2D(particle_1.p, particle_2.p, length, strength))
 ```
-- Python classes wrap Java particles to add `show()` methods
-- Gotcha: the *world* needs the underlying Java object, not the wrapper
 <!--
+- python classes wrap java particles to add show() methods
+- gotcha: the world needs the underlying java object, not the wrapper
 - the book subclasses VerletParticle2D in js; in py5 composition is cleaner than subclassing java classes
 - forgetting .p is the classic error here -- type mismatch at the java boundary
 -->
 
 ---
+
 <!--
 _backgroundColor: white
 _paginate: false
 -->
-![bg contain](img_soft_string.png)
+![bg contain](rethink--soft-string.png)
 <!--
 - toxiclibs soft string: verlet particles + springs, rendered with py5's curve_vertex
 -->
@@ -583,10 +581,10 @@ from sklearn.neural_network import MLPClassifier
 classifier = MLPClassifier(hidden_layer_sizes=(16,), max_iter=2500)
 classifier.fit(inputs, outputs)   # trains before setup() runs
 ```
-- ml5.js trains asynchronously » callbacks (`whenTrained`, ...)
-- scikit-learn trains **synchronously, before the window opens**
-- Callbacks disappear entirely; the shell replaces ml5's "Visor"
 <!--
+- ml5.js trains asynchronously with callbacks (whenTrained, ...)
+- scikit-learn trains synchronously, before the window opens
+- callbacks disappear entirely; the shell replaces ml5's visor
 - async is the deepest rethink: the browser cannot block, python happily can
 - ch10's perceptron is hand-rolled in both languages -- that one is a direct port
 -->
@@ -608,8 +606,8 @@ class Brain:
         h = np.tanh(self.w_ih @ x + self.b_h)
         return (self.w_ho @ h + self.b_o).tolist()
 ```
-- ml5's `neuroEvolution` has no drop-in substitute » write one (~50 lines)
 <!--
+- ml5's neuroEvolution has no drop-in substitute -- write one (~50 lines)
 - forward pass is two matrix multiplications -- numpy's @ operator
 - ga helpers (crossover, mutate) operate directly on the weight arrays
 - sometimes "rethinking" means realising the library was hiding very little
@@ -680,8 +678,8 @@ for (let i = particles.length - 1; i >= 0; i--) {
 # py5 -- rebuild the list declaratively
 self.particles = [p for p in self.particles if not p.dead]
 ```
-- The chapter 4 index-juggling disappears entirely
 <!--
+- the chapter 4 index-juggling disappears entirely
 - callback to the rethinking section: the backward loop works, but this is the pythonic answer
 - isDead() method becomes a dead property -- same attribute-over-method pattern as .mag
 -->
@@ -700,8 +698,8 @@ next_gen = cells[:]                # copy a generation
 cells = [0] * (width // W)         # build a row of dead cells
 left, me, right = cells[i - 1], cells[i], cells[i + 1]
 ```
-- List building, copying, and unpacking shrink the Wolfram CA code
 <!--
+- list building, copying, and unpacking shrink the wolfram ca code
 - tuple unpacking makes the neighborhood read like the book's prose
 - integer division // avoids the js-style floor() call for grid math
 -->
