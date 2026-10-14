@@ -460,6 +460,24 @@ def draw():
 
 ---
 
+## Rethink Logic » Multi-File Sketches
+
+```python
+# particle.py -- no import line, just this marker
+# PY5 IMPORTED MODE CODE
+
+class Particle:
+    def show(self):
+        circle(self.x, self.y, 48)  # py5 functions still work
+```
+<!--
+- imported mode only injects py5 into the main sketch file
+- external modules need the marker comment so py5 injects its api there too
+- without it: NameError on circle, fill, etc. -- no from py5 import * needed
+-->
+
+---
+
 ## Rethink Logic » Deleting While Iterating
 
 ```javascript
@@ -720,6 +738,84 @@ left, me, right = cells[i - 1], cells[i], cells[i + 1]
 
 ---
 
+# Materials
+<!-- 
+backgroundColor: saddlebrown
+color: var(--color-background)
+-->
+
+---
+
+<!--
+_backgroundColor: #EEE
+_paginate: false
+-->
+![bg 70%](materials--01-noc-book-lin.png)
+> https://natureofcode.com
+<!--
+- the book is free to read online; the additional resources page lists ports to other languages
+- the py5 port lives alongside pygame, openframeworks, and go ports
+-->
+
+---
+
+<!--
+_backgroundColor: #EEE
+_paginate: false
+-->
+![bg 70%](materials--02-repo-1.png)
+> https://github.com/tabreturn/py5-nature-of-code
+<!--
+- the complete py5 port: all chapters, built with thonny-py5mode
+-->
+
+---
+
+<!--
+_backgroundColor: #EEE
+_paginate: false
+-->
+![bg 70%](materials--03-repo-2.png)
+> https://github.com/tabreturn/py5-nature-of-code
+
+---
+
+<!--
+_backgroundColor: #EEE
+_paginate: false
+-->
+![bg 70%](materials--04-repo-3.png)
+> https://github.com/tabreturn/py5-nature-of-code
+<!--
+- the readme links every py5 sketch to its original p5.js editor sketch
+-->
+
+---
+
+<!--
+_backgroundColor: #EEE
+_paginate: false
+-->
+![bg 70%](materials--05-jupyter-holly.png)
+> https://github.com/hollygrimm/py5-noc-book-2
+<!--
+- if notebooks are your style: all 12 chapters as runnable jupyter notebooks, full book text plus code
+-->
+
+---
+
+<!--
+_backgroundColor: #EEE
+_paginate: false
+-->
+![bg 70%](materials--06-jupyter-chapter.png)
+> https://github.com/hollygrimm/py5-noc-book-2
+<!--
+- book prose, figures, and editable py5 cells interleaved per chapter
+-->
+
+---
+
 # Takeaways
 <!-- 
 backgroundColor: darkolivegreen
@@ -730,7 +826,7 @@ color: var(--color-background)
 
 ## Takeaways
 
-- **Most of the book translates directly** -- randomness through fractals is near line-for-line
+- **Most of the book translates directly** -- randomness through fractals, plus the GA chapter, is near line-for-line
 - **Renames to remember**: `map()` » `remap()`, camelCase » snake_case, `.mag()` » `.mag`
 - **The `global` keyword** is the most common porting stumble
 - **Library substitution**: Pymunk for Matter.js, original Java Toxiclibs via the JVM, scikit-learn / NumPy for ml5.js
