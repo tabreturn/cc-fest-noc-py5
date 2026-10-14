@@ -144,7 +144,7 @@ _backgroundColor: #000
 _paginate: false
 _class: lead
 -->
-## ...
+*... restarting ...*
 
 ---
 
@@ -225,33 +225,18 @@ _paginate: false
 
 ---
 
-
-
-
-
-
----
-<!--
-_backgroundColor: white
-_paginate: false
--->
-![bg contain](img_banner.png)
-<!--
-- a complete py5 port of the book's examples exists -- every chapter, ~100 sketches
-- we'll use it as our map: it shows exactly where translation is trivial and where it isn't
+# py5
+<!-- 
+paginate: true
+backgroundColor: maroon
+color: var(--color-background)
 -->
 
 ---
 
-## The Big Picture » py5
-
-- Python framework built on the **Processing** core (runs on the JVM)
-- Same `setup()` / `draw()` model as p5.js
-- *Imported mode*: py5 functions available with no explicit import
+## py5 » Simple Sketch
 
 ```python
-# PY5 IMPORTED MODE CODE
-
 def setup():
     size(640, 240)
 
@@ -259,30 +244,42 @@ def draw():
     background(255)
     circle(mouse_x, mouse_y, 48)
 ```
-<!--
-- the jvm point matters later -- it's what makes java library substitution possible
-- the "PY5 IMPORTED MODE CODE" marker injects the py5 api into the module namespace
-- to run: install thonny-py5mode and activate py5 -> imported mode in the editor
--->
 
 ---
 
-## The Big Picture » Three Kinds of Translation
+## py5 » Porting Approach
 
-- **Direct** -- vectors, forces, particles: near line-for-line
-- **Rethink** -- p5.js-exclusive libraries need substitutes
-- **Simplify** -- Python idioms shorten the original JavaScript
+- **Translate Directly** -- vectors, forces, particles: near line-for-line
+- **Rethink Logic** -- p5.js-exclusive libraries need substitutes
+- **Simplify Code** -- Python idioms shorten the original JavaScript
 
-| Original (p5.js) | Python substitute |
-| --- | --- |
-| Matter.js | Pymunk (Chipmunk2D wrapper) |
-| toxiclibs.js | Toxiclibs *Java* library via the JVM |
-| ml5.js | scikit-learn / bespoke NumPy |
+---
+
+## py5 » Substitutions
+
+<table style="width:100%;border:none">
+  <tr style="background-color:rgba(0,0,0,0.3)">
+    <td style="border-color:rgba(0,0,0,0.3)">p5.js (original)</td>
+    <td style="border-color:rgba(0,0,0,0.3)">Python (py5)</td>
+  </tr>
+  <tr style="background:none">
+    <td style="border-color:rgba(0,0,0,0.3);background:transparent">Matter.js</td>
+    <td style="border-color:rgba(0,0,0,0.3);background:transparent">Pymunk (Chipmunk2D wrapper)</td>
+  </tr>
+  <tr>
+    <td style="border-color:rgba(0,0,0,0.3);background:transparent">toxiclibs.js</td>
+    <td style="border-color:rgba(0,0,0,0.3);background:transparent">Toxiclibs *Java* library via the JVM</td>
+  </tr>
+  <tr style="background:none">
+    <td style="border-color:rgba(0,0,0,0.3);background:transparent">ml5.js</td>
+    <td style="border-color:rgba(0,0,0,0.3);background:transparent">scikit-learn / bespoke NumPy</td>
+  </tr>
+</table>
 
 ---
 
 
-# Direct Translations
+# Translate Directly
 <!-- 
 backgroundColor: indigo
 color: var(--color-background)
@@ -290,7 +287,7 @@ color: var(--color-background)
 
 ---
 
-## Direct Translations » Same Skeleton, New Spelling
+## Translate Directly » py5 Naming
 
 ```javascript
 // p5.js
@@ -308,66 +305,45 @@ def setup():
 def draw():
     circle(mouse_x, mouse_y, 48)
 ```
+
+---
+
+## Translate Directly » Renames to Know
+
+<table style="width:100%;border:none">
+  <tr style="background-color:rgba(0,0,0,0.3)">
+    <td style="border-color:rgba(0,0,0,0.3)">p5.js</td>
+    <td style="border-color:rgba(0,0,0,0.3)">py5</td>
+    <td style="border-color:rgba(0,0,0,0.3)">Why</td>
+  </tr>
+  <tr style="background:none">
+    <td style="border-color:rgba(0,0,0,0.3);background:transparent"><code>createCanvas()</code></td>
+    <td style="border-color:rgba(0,0,0,0.3);background:transparent"><code>size()</code></td>
+    <td style="border-color:rgba(0,0,0,0.3);background:transparent">Processing Java</td>
+  </tr>
+  <tr>
+    <td style="border-color:rgba(0,0,0,0.3);background:transparent"><code>map()</code></td>
+    <td style="border-color:rgba(0,0,0,0.3);background:transparent"><code>remap()</code></td>
+    <td style="border-color:rgba(0,0,0,0.3);background:transparent"><code>map()</code> Python built-in</td>
+  </tr>
+  <tr style="background:none">
+    <td style="border-color:rgba(0,0,0,0.3);background:transparent"><code>mouseX</code>, <code>strokeWeight()</code></td>
+    <td style="border-color:rgba(0,0,0,0.3);background:transparent"><code>mouse_x</code>, <code>stroke_weight()</code></td>
+    <td style="border-color:rgba(0,0,0,0.3);background:transparent">snake_case</td>
+  </tr>
+  <tr style="background:none">
+    <td style="border-color:rgba(0,0,0,0.3);background:transparent"><code>createVector</code></td>
+    <td style="border-color:rgba(0,0,0,0.3);background:transparent"><code>Py5Vector2D</code>, <code>Py5Vector3D</code></td>
+    <td style="border-color:rgba(0,0,0,0.3);background:transparent">real class</td>
+  </tr>
+</table>
 <!--
-- the draw loop, frame rate, and event model all behave the same
-- transformations too: push/pop, translate, rotate port unchanged
+- mostly everything is a mechanical camelCase-to-snake_case conversion
 -->
 
 ---
 
-## Direct Translations » Renames to Know
-
-| p5.js | py5 | Why |
-| --- | --- | --- |
-| `createCanvas()` | `size()` | Processing heritage |
-| `map()` | `remap()` | `map()` is a Python built-in |
-| `mouseX`, `strokeWeight()` | `mouse_x`, `stroke_weight()` | snake_case |
-| `random()`, `noise()` | `random()`, `noise()` | unchanged |
-| `push()` / `pop()` | `push()` / `pop()` | unchanged |
-<!--
-- remap is the one that bites people: p5's map collides with python's built-in map
-- everything else is a mechanical camelCase-to-snake_case conversion
--->
-
----
-
-## Direct Translations » Randomness & Perlin Noise
-
-```python
-class Walker:
-
-    def __init__(self):
-        self.tx = 0
-        self.ty = 10_000
-
-    def step(self) -> None:
-        # x- and y-position mapped from noise.
-        self.x = remap(noise(self.tx), 0, 1, 0, width)
-        self.y = remap(noise(self.ty), 0, 1, 0, height)
-        self.tx += 0.01
-        self.ty += 0.01
-```
-- Chapter 0 ports line-for-line: `noise()`, Gaussian, accept-reject
-<!--
-- note remap() again in real use
-- note 10_000 -- python permits underscores in numeric literals for readability
-- perlin noise behaves identically: same 0..1 range, same time-step technique
--->
-
----
-<!--
-_backgroundColor: white
-_paginate: false
--->
-![bg contain](img_flow_field.png)
-<!--
-- a perlin-noise flow field -- the book's signature randomness visual
-- identical output from the py5 port; the algorithm is untouched
--->
-
----
-
-## Direct Translations » Vectors
+## Translate Directly » Vector Operations
 
 ```javascript
 // p5.js -- createVector() must be called inside setup()
@@ -384,24 +360,24 @@ position += velocity
 <!--
 - p5.Vector mutates via method calls: add, sub, mult
 - Py5Vector overloads the arithmetic operators -- more on this in the simplify section
-- separate 2D/3D classes: Py5Vector2D, Py5Vector3D
+- note that there are still add(), sub(), etc. methods
 -->
 
 ---
 
-## Direct Translations » Methods Become Attributes
+## Translate Directly » Vector Attributes
 
 ```javascript
 // p5.js
 let mouse = createVector(mouseX, mouseY);
 mouse.sub(center);
-const m = mouse.mag();   // method call
+const m = mouse.mag();  // method call
 ```
 ```python
 # py5
 mouse = Py5Vector2D(mouse_x, mouse_y)
 mouse -= center
-m = mouse.mag            # plain attribute
+m = mouse.mag           # plain attribute
 ```
 <!--
 - magnitude, heading and friends are properties in py5, not methods
@@ -410,7 +386,7 @@ m = mouse.mag            # plain attribute
 
 ---
 
-## Direct Translations » Classes: `this` Becomes `self`
+## Translate Directly » Class
 
 ```javascript
 // p5.js
@@ -426,7 +402,6 @@ class Mover:
     def __init__(self, x, y):
         self.position = Py5Vector2D(x, y)
 ```
-- The Walker, Mover, Particle, Vehicle classes port almost mechanically
 <!--
 - constructor() becomes __init__(); implicit this becomes explicit self
 - the book's object-oriented backbone survives translation intact
@@ -434,7 +409,7 @@ class Mover:
 
 ---
 
-## Direct Translations » Steering: Reynolds' `seek()`
+## Translate Directly » Class Methods
 
 ```python
 def seek(self, target: Py5Vector2D) -> Py5Vector2D:
@@ -448,58 +423,14 @@ def seek(self, target: Py5Vector2D) -> Py5Vector2D:
     steer.set_limit(self.max_force)
     return steer
 ```
-- Seek, flee, wander, path following, flocking: all direct ports
 <!--
 - limit() becomes set_limit(), setMag() becomes set_mag() -- but the algorithm is untouched
-- newton's-law physics model (apply_force accumulating acceleration) ports as-is
--->
-
----
-<!--
-_backgroundColor: white
-_paginate: false
--->
-![bg contain](img_flocking.png)
-<!--
-- flocking: separation + alignment + cohesion, straight from the book
-- even the bin-lattice optimisation chapter has a py5 equivalent
+- note that Python allows optional type hinting
 -->
 
 ---
 
-## Direct Translations » Recursion & Fractals
-
-```python
-def branch(length: float) -> None:
-    line(0, 0, 0, -length)  # Draw the branch.
-    translate(0, -length)   # Translate to the end.
-    length *= 0.67
-
-    if length > 2:          # Exit condition for the recursion!
-        push()
-        rotate(angle)
-        branch(length)      # Branch to the right ...
-        pop()
-```
-- `push()` / `pop()` / `translate()` / `rotate()` all behave identically
-<!--
-- recursion, cantor set, koch curve, l-systems: the fractals chapter is a pure direct port
-- matrix-stack based drawing is a processing concept both frameworks share
--->
-
----
-<!--
-_backgroundColor: white
-_paginate: false
--->
-![bg contain](img_tree.png)
-<!--
-- the recursive tree, angle mapped from mouse_x -- identical in both languages
--->
-
----
-
-# Rethinking Required
+# Rethink Logic
 <!-- 
 backgroundColor: midnightblue
 color: var(--color-background)
@@ -507,7 +438,7 @@ color: var(--color-background)
 
 ---
 
-## Rethinking Required » Scope Is Different
+## Rethink Logic » Scope Is Different
 
 ```javascript
 // p5.js -- outer variables just work
@@ -529,7 +460,7 @@ def draw():
 
 ---
 
-## Rethinking Required » Deleting While Iterating
+## Rethink Logic » Deleting While Iterating
 
 ```javascript
 // p5.js -- loop backward to splice safely
@@ -552,7 +483,7 @@ for i in range(len(particles) - 1, -1, -1):
 
 ---
 
-## Rethinking Required » Physics: Matter.js » Pymunk
+## Rethink Logic » Physics: Matter.js » Pymunk
 
 ```python
 from pymunk import Body, moment_for_box, Poly, Space
@@ -570,7 +501,7 @@ engine.gravity = (0, 1.0 * SCALE_GRAVITY) # calibration constant
 
 ---
 
-## Rethinking Required » Pymunk: Calibrating Two Engines
+## Rethink Logic » Pymunk: Calibrating Two Engines
 
 ```python
 """
@@ -593,7 +524,7 @@ SCALE_FRICTION = SCALE_TIME
 
 ---
 
-## Rethinking Required » Toxiclibs: Skip the Port, Use the Original
+## Rethink Logic » Toxiclibs: Skip the Port, Use the Original
 
 ```python
 # The actual Java library, imported straight into Python
@@ -613,7 +544,7 @@ physics.setWorldBounds(Rect(0, 0, width, height))
 
 ---
 
-## Rethinking Required » Wrapping Java Objects
+## Rethink Logic » Wrapping Java Objects
 
 ```python
 class Particle:  # Python wrapper around a Java VerletParticle2D
@@ -644,7 +575,7 @@ _paginate: false
 
 ---
 
-## Rethinking Required » Machine Learning: ml5.js » scikit-learn
+## Rethink Logic » Machine Learning: ml5.js » scikit-learn
 
 ```python
 from sklearn.neural_network import MLPClassifier
@@ -662,7 +593,7 @@ classifier.fit(inputs, outputs)   # trains before setup() runs
 
 ---
 
-## Rethinking Required » Neuroevolution: a Bespoke NumPy Brain
+## Rethink Logic » Neuroevolution: a Bespoke NumPy Brain
 
 ```python
 class Brain:
@@ -686,7 +617,7 @@ class Brain:
 
 ---
 
-# Where Python Simplifies
+# Simplify Code
 <!-- 
 backgroundColor: darkred
 color: var(--color-background)
@@ -694,7 +625,7 @@ color: var(--color-background)
 
 ---
 
-## Where Python Simplifies » Operator Overloading
+## Simplify Code » Operator Overloading
 
 ```javascript
 // p5.js -- verbose static/method calls
@@ -715,7 +646,7 @@ mover.acceleration += force
 
 ---
 
-## Where Python Simplifies » Comprehensions
+## Simplify Code » Comprehensions
 
 ```javascript
 // p5.js
@@ -737,7 +668,7 @@ training = [
 
 ---
 
-## Where Python Simplifies » Filtering Particles
+## Simplify Code » Filtering Particles
 
 ```javascript
 // p5.js -- backward loop + splice
@@ -757,7 +688,7 @@ self.particles = [p for p in self.particles if not p.dead]
 
 ---
 
-## Where Python Simplifies » Slices: Cellular Automata
+## Simplify Code » Slices: Cellular Automata
 
 ```javascript
 // p5.js
@@ -777,7 +708,7 @@ left, me, right = cells[i - 1], cells[i], cells[i + 1]
 
 ---
 
-## Where Python Simplifies » Small Quality-of-Life Wins
+## Simplify Code » Small Quality-of-Life Wins
 
 - `position += velocity` -- augmented assignment on vectors
 - `10_000` -- readable numeric literals
@@ -787,54 +718,6 @@ left, me, right = cells[i - 1], cells[i], cells[i + 1]
 <!--
 - none of these are transformative alone; together the ports are consistently shorter
 - type hints are optional but the py5 port uses them throughout
--->
-
----
-
-# Where AI Helps (and Where It Doesn't)
-<!-- 
-backgroundColor: saddlebrown
-color: var(--color-background)
--->
-
----
-
-## Where AI Helps » The Mechanical 80%
-
-- **Renaming passes**: camelCase » snake_case, `let/const` » nothing, `this` » `self` -- ideal LLM work
-- **Boilerplate**: wrapper classes, type hints, docstrings
-- **API explanation**: "what's the Pymunk equivalent of `Bodies.rectangle()`?"
-- Direct-translation chapters (0-5, 8) are near-perfect AI territory: the algorithm is unchanged, only the spelling moves
-<!--
-- an llm given a p5.js sketch and asked for py5 typically produces a runnable first draft for the direct chapters
-- the book's heavy commenting helps: comments translate too, keeping the port aligned with the text
--->
-
----
-
-## Where AI Doesn't » Hallucination & Judgement
-
-- **Hallucinated APIs**: `.mag()` as a method, invented py5 functions, `createVector()` habits bleeding through
-- **Substitution decisions**: *which* physics library? Pymunk vs. the original Java Toxiclibs is a judgement call AI won't make for you
-- **Calibration**: `SCALE_GRAVITY = 900.0` came from empirical tuning, not translation
-- **JVM boundary quirks**: passing `.p` (the Java object) instead of the wrapper
-<!--
-- models trained mostly on processing/p5.js confuse the three apis constantly
-- calibration constants can only be found by running both sketches side by side and comparing
-- the toxiclibs-via-jvm route is non-obvious: an llm defaults to suggesting a python physics library instead
--->
-
----
-
-## Where AI Doesn't » Eyes on the Sketch
-
-- These are *visual* programs -- correctness means **matching the book's figures**
-- AI can't watch the sketch run: jittery motion, wrong gravity feel, drifting flocks all pass a code review
-- Working loop: **AI drafts » you run » compare against the p5.js original » tune**
-- The p5.js editor links beside every ported sketch exist for exactly this
-<!--
-- example: a pymunk port that compiles and runs but falls at the wrong speed -- no error, just wrong physics
-- the visual comparison step is where all the calibration constants were discovered
 -->
 
 ---
@@ -880,3 +763,4 @@ paginate: false
 backgroundColor: black
 color: var(--color-background)
 -->
+
