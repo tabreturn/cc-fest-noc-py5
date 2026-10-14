@@ -339,6 +339,31 @@ def draw():
 </table>
 <!--
 - mostly everything is a mechanical camelCase-to-snake_case conversion
+- renaming cuts the other way too: js names like next and len shadow python builtins -- the port uses next_, len_
+-->
+
+---
+
+## Translate Directly » Randomness & Noise
+
+```javascript
+// p5.js
+let x = random(width);
+let g = randomGaussian(0, 1);
+let n = noise(xoff);
+```
+```python
+# py5
+x = random(width)             # py5's own, not the random module
+g = random_gaussian(0, 1)
+n = noise(xoff)
+```
+<!--
+- chapter 0 ports near line-for-line: random(), random_gaussian(), noise() all exist in py5
+- gotcha: py5's random() shadows python's random module -- don't import random on top of it
+- bonus helper: random_int() -- a coin flip without floor(random(2))
+- noise() is processing's perlin implementation, not p5.js's -- same character, different exact values
+- py5 also offers os_noise() (opensimplex) as an alternative
 -->
 
 ---
@@ -382,6 +407,7 @@ m = mouse.mag           # plain attribute
 <!--
 - magnitude, heading and friends are properties in py5, not methods
 - easy stumbling block: mouse.mag() raises TypeError -- float is not callable
+- same pattern carries the oscillation chapter: velocity.heading() becomes velocity.heading
 -->
 
 ---
@@ -430,6 +456,31 @@ def seek(self, target: Py5Vector2D) -> Py5Vector2D:
 
 ---
 
+## Translate Directly » Caveat: `# PY5 IMPORTED MODE CODE`
+
+```python
+# mover.py
+# PY5 IMPORTED MODE CODE
+
+class Mover:
+    def __init__(self):  # no width/height parameters needed
+        self.position = Py5Vector2D(width / 2, height / 2)
+
+    def check_edges(self):
+        if self.position.x > width:  # always the live value
+            self.position.x = 0
+```
+<!--
+- caveat for class files living in their own modules: imported mode only injects py5 into the main sketch file -- external modules need this marker comment at the top
+- without it: NameError on circle, fill, width, etc.; with it, no import line or py5 prefixes needed
+- the marker injects the whole py5 api: functions, classes, and the dynamic variables -- width, height, mouse_x, frame_count
+- so class files read width/height as globals, exactly like the p5.js originals -- no passing them through constructors
+- the injected names are live values, not snapshots at import time
+- this is how the py5 port keeps its class files line-for-line with the book's
+-->
+
+---
+
 # Rethink Logic
 <!-- 
 backgroundColor: midnightblue
@@ -460,20 +511,26 @@ def draw():
 
 ---
 
-## Rethink Logic » Multi-File Sketches
+## Rethink Logic » No `preload()`
 
+```javascript
+// p5.js -- assets load asynchronously before setup()
+let img;
+function preload() {
+  img = loadImage('texture.png');
+}
+```
 ```python
-# particle.py -- no import line, just this marker
-# PY5 IMPORTED MODE CODE
-
-class Particle:
-    def show(self):
-        circle(self.x, self.y, 48)  # py5 functions still work
+# py5 -- loading is synchronous: just do it in setup()
+def setup():
+    global img
+    size(640, 240)
+    img = load_image('texture.png')
 ```
 <!--
-- imported mode only injects py5 into the main sketch file
-- external modules need the marker comment so py5 injects its api there too
-- without it: NameError on circle, fill, etc. -- no from py5 import * needed
+- the browser can't block, so p5.js needs preload() / callbacks for assets
+- python blocks happily: load_image() returns the finished image, preload() disappears
+- same theme returns at full scale in the ml5 » scikit-learn slide: async is the deepest rethink
 -->
 
 ---
@@ -576,17 +633,6 @@ physics.addSpring(VerletSpring2D(particle_1.p, particle_2.p, length, strength))
 - gotcha: the world needs the underlying java object, not the wrapper
 - the book subclasses VerletParticle2D in js; in py5 composition is cleaner than subclassing java classes
 - forgetting .p is the classic error here -- type mismatch at the java boundary
--->
-
----
-
-<!--
-_backgroundColor: white
-_paginate: false
--->
-![bg contain](rethink--soft-string.png)
-<!--
-- toxiclibs soft string: verlet particles + springs, rendered with py5's curve_vertex
 -->
 
 ---
@@ -727,6 +773,7 @@ left, me, right = cells[i - 1], cells[i], cells[i + 1]
 ## Simplify Code » Small Quality-of-Life Wins
 
 - `position += velocity` -- augmented assignment on vectors
+- `Particle(*self.origin)` -- vectors unpack as iterables
 - `10_000` -- readable numeric literals
 - Type hints: `def step(self) -> None:` documents intent
 - No `let` / `const` / semicolons / braces
@@ -826,7 +873,7 @@ color: var(--color-background)
 
 ## Takeaways
 
-- **Most of the book translates directly** -- randomness through fractals, plus the GA chapter, is near line-for-line
+- **Most of the book translates directly** -- randomness, vectors, forces, oscillation, particles, steering, CA, fractals, and GA are near line-for-line
 - **Renames to remember**: `map()` » `remap()`, camelCase » snake_case, `.mag()` » `.mag`
 - **The `global` keyword** is the most common porting stumble
 - **Library substitution**: Pymunk for Matter.js, original Java Toxiclibs via the JVM, scikit-learn / NumPy for ml5.js
