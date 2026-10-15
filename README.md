@@ -25,10 +25,11 @@ It's also listed under the book's [Additional Resources chapter](https://natureo
 
 ## Useful Resources
 
-* [py5 website](https://py5coding.org/)
-* [py5 reference](https://py5coding.org/reference)
-* [py5 cheatsheet](https://raw.githubusercontent.com/tabreturn/processing.py-cheat-sheet/master/py5/py5_cc.pdf)
-* [The Nature of Code](https://natureofcode.com/) by Daniel Shiffman (free online)
+- [py5 website](https://py5coding.org/)
+- [py5 reference](https://py5coding.org/reference)
+- [py5 cheatsheet](https://raw.githubusercontent.com/tabreturn/processing.py-cheat-sheet/master/py5/py5_cc.pdf)
+- [The Nature of Code](https://natureofcode.com/) by Daniel Shiffman (free online)
+- [Villares' sketch-a-day](https://abav.lugaralgum.com/sketch-a-day)
 
 
 ## Rendering the Deck
