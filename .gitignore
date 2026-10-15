@@ -1,6 +1,6 @@
-marp--*/*.html
-
-.crush/
+# marp
+marp_slides/*.html
+marp_slides/*.pdf
 
 # node
 node_modules/
@@ -18,4 +18,6 @@ pnpm-debug.log*
 .AppleDouble
 .LSOverride
 ._*
+
+.crush/
 
