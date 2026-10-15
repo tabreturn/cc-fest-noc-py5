@@ -93,7 +93,7 @@ _paginate: false
 ## Introduction » Run py5
 * <highlight>Standard Python script:</highlight> VS Code, PyCharm, terminal, etc.
 * <highlight>Jupyter Notebook:</highlight> Via standard ipykernel, or py5 kernel
-* <highlight>Thonny-py5mode:</highlight> Thonny IDE + py5 plugin <span style="color:orange;font-weight:bold">🠄</style>
+* <highlight>Thonny-py5mode:</highlight> Thonny IDE + py5 plugin <span style="color:orange;font-weight:bold">🠄</span>
 <!--
 - discuss pros/cons of each:
 - standard -- any editor; requires manual environment/pip setup
@@ -144,7 +144,7 @@ _paginate: false
 ---
 
 <!--
-_backgroundColor: #000
+_backgroundColor: black
 _paginate: false
 -->
 ![bg 50%](setup--02-thonny-install.png)
@@ -155,7 +155,7 @@ _paginate: false
 ---
 
 <!--
-_backgroundColor: #000
+_backgroundColor: black
 _paginate: false
 -->
 ![bg 50%](setup--03-thonny-1st-launch.png)
@@ -166,7 +166,7 @@ _paginate: false
 ---
 
 <!--
-_backgroundColor: #000
+_backgroundColor: black
 _paginate: false
 -->
 ![bg 50%](setup--04-thonny-plugin-step-1.png)
@@ -174,7 +174,7 @@ _paginate: false
 ---
 
 <!--
-_backgroundColor: #000
+_backgroundColor: black
 _paginate: false
 -->
 ![bg 50%](setup--05-thonny-plugin-step-2.png)
@@ -182,7 +182,7 @@ _paginate: false
 ---
 
 <!--
-_backgroundColor: #000
+_backgroundColor: black
 _paginate: false
 -->
 ![bg 50%](setup--06-thonny-plugin-step-3.png)
@@ -190,7 +190,7 @@ _paginate: false
 ---
 
 <!--
-_backgroundColor: #000
+_backgroundColor: black
 _paginate: false
 -->
 ![bg 50%](setup--07-thonny-plugin-restart.png)
@@ -198,7 +198,7 @@ _paginate: false
 ---
 
 <!--
-_backgroundColor: #000
+_backgroundColor: black
 _paginate: false
 _class: lead
 -->
@@ -207,7 +207,7 @@ _class: lead
 ---
 
 <!--
-_backgroundColor: #000
+_backgroundColor: black
 _paginate: false
 -->
 ![bg 50%](setup--08-thonny-activate.png)
@@ -224,19 +224,19 @@ _paginate: false
 ---
 
 <!--
-_backgroundColor: #000
+_backgroundColor: black
 _paginate: false
 -->
 ![bg 50%](setup--09-thonny-activate-jdk.png)
 <!--
 - if java is not detected, it'll download and install a local version
 - (recall that py5 is running on java processing)
---->
+-->
 
 ---
 
 <!--
-_backgroundColor: #000
+_backgroundColor: black
 _paginate: false
 -->
 ![bg 50%](setup--10-thonny-apply-settings.png)
@@ -247,7 +247,7 @@ _paginate: false
 ---
 
 <!--
-_backgroundColor: #000
+_backgroundColor: black
 _paginate: false
 -->
 ![bg 50%](setup--11-thonny-applied-settings.png)
@@ -255,7 +255,7 @@ _paginate: false
 ---
 
 <!--
-_backgroundColor: #000
+_backgroundColor: black
 _paginate: false
 -->
 ![bg 50%](setup--12-thonny-run.png)
@@ -267,7 +267,7 @@ _paginate: false
 ---
 
 <!--
-_backgroundColor: #000
+_backgroundColor: black
 _paginate: false
 -->
 ![bg 50%](setup--13-change-mode.png)
@@ -279,7 +279,7 @@ _paginate: false
 ---
 
 <!--
-_backgroundColor: #000
+_backgroundColor: black
 _paginate: false
 -->
 ![bg 50%](setup--14-thonny-run-module.png)
@@ -311,7 +311,7 @@ def draw():
     circle(mouse_x, mouse_y, 48)
 ```
 <!--
-- perhaps a few things stand out: the python syntax, java-style size function instead of p5.js createCanvas
+- perhaps a few things stand out: the python syntax, java-style size() function instead of p5.js createCanvas()
 - (but more on the differences to come)
 -->
 
@@ -426,18 +426,18 @@ def draw():
 let x = random(width);
 let g = randomGaussian(0, 1);
 let n = noise(xoff);
-let coinflip = floor(random(2)); // 0 or 1
+let coinflip = floor(random(2));  // 0 or 1
 ```
 ```python
 # py5
-x = random(width)  # py5's own, not the random module
+x = random(width)                 # py5's own, not the random module
 g = random_gaussian(0, 1)
 n = noise(xoff)
-coinflip = random_int(1)  # inclusive: returns 0 or 1
+coinflip = random_int(1)          # inclusive: returns 0 or 1
 ```
 <!--
 - chapter 0 ports near line-for-line: random(), random_gaussian(), noise() all exist in py5
-- noise() is processing's perlin implementation, not p5.js's -- same character, different exact values
+- noise() is processing's perlin implementation, not p5.js's -- same effect, different exact values
 - py5 also offers os_noise() (opensimplex) as an alternative
 -->
 
@@ -446,112 +446,116 @@ coinflip = random_int(1)  # inclusive: returns 0 or 1
 ## Translate Directly » Vector Operations
 
 ```javascript
-// p5.js -- createVector() must be called inside setup()
+// p5.js
 position = createVector(100, 100);
 velocity = createVector(2.5, 2);
 position.add(velocity);
+print(position.mag());
+position.setMag(10);
 ```
 ```python
-# py5 -- a real class, usable anywhere
+# py5 
 position = Py5Vector2D(100, 100)
 velocity = Py5Vector2D(2.5, 2)
 position += velocity
+print(position.mag)
+position.mag = 10
 ```
 <!--
-- p5.Vector mutates via method calls: add, sub, mult
-- Py5Vector overloads the arithmetic operators -- more on this in the simplify section
-- note that there are still add(), sub(), etc. methods
+- createVector() needs setup() (unless using new p5.Vector); Py5Vector is a standalone class usable anywhere
+- p5.Vector mutates via method calls: add(), sub(), mult() ...
+- Py5Vector overloads the arithmetic operators (+, +=, *=) -- more on this in the simplify section
+- p5.js uses getter/setter methods (mag(), setMag()); py5 uses python properties (position.mag = 10)
+- Py5Vector is explicitly sized (Py5Vector2D, Py5Vector3D) and backed by numpy under the hood
+- because noc uses a lot of vectors, i appreciated these changes
 -->
 
 ---
 
-## Translate Directly » Vector Attributes
+## Translate Directly » Multi-File Caveat
 
-```javascript
-// p5.js
-let mouse = createVector(mouseX, mouseY);
-mouse.sub(center);
-const m = mouse.mag();  // method call
-```
+<highlight><em>mover.py</em></highlight>
 ```python
-# py5
-mouse = Py5Vector2D(mouse_x, mouse_y)
-mouse -= center
-m = mouse.mag           # plain attribute
-```
-<!--
-- magnitude, heading and friends are properties in py5, not methods
-- easy stumbling block: mouse.mag() raises TypeError -- float is not callable
-- same pattern carries the oscillation chapter: velocity.heading() becomes velocity.heading
--->
+from py5 import *
 
----
-
-## Translate Directly » Class
-
-```javascript
-// p5.js
-class Mover {
-  constructor(x, y) {
-    this.position = createVector(x, y);
-  }
-}
-```
-```python
-# py5
 class Mover:
-    def __init__(self, x, y):
-        self.position = Py5Vector2D(x, y)
+    def __init__(self, width, height):  # must pass in width & height
+        self.width = width
+        self.height = height
+        self.position = Py5Vector2D(self.width / 2, self.height / 2)
+
+    def show(self):
+        fill(127)
+        circle(self.position.x, self.position.y, 48)
 ```
 <!--
-- constructor() becomes __init__(); implicit this becomes explicit self
-- the book's object-oriented backbone survives translation intact
+- caveat when splitting classes into separate .py files in imported mode:
+- imported mode only auto-injects py5 into the main sketch file
+- without an import in mover.py: NameError on Py5Vector2D, fill, circle, etc.
+- from py5 import * imports functions/classes, but dynamic variables (width, height, mouse_x) fail
+- forces workarounds like passing width/height or calling py5.get_current_sketch()
 -->
 
 ---
 
-## Translate Directly » Class Methods
+## Translate Directly » Multi-File Caveat (Alt.)
 
+<highlight><em>mover.py</em></highlight>
 ```python
-def seek(self, target: Py5Vector2D) -> Py5Vector2D:
-    # Calculate the desired velocity to target at max speed.
-    desired = target - self.position
-    if desired.mag == 0: return Py5Vector2D()
-    desired.normalize()
-    desired.set_mag(self.max_speed)
-    # Reynolds' formula for steering force.
-    steer = desired - self.velocity
-    steer.set_limit(self.max_force)
-    return steer
+from py5 import *
+
+class Mover:
+    def __init__(self):
+        s = get_current_sketch()
+        self.position = Py5Vector2D(s.width / 2, s.height / 2)
+
+    def show(self):
+        fill(127)
+        circle(self.position.x, self.position.y, 48)
 ```
 <!--
-- limit() becomes set_limit(), setMag() becomes set_mag() -- but the algorithm is untouched
-- note that Python allows optional type hinting
+- alternative workaround without changing constructor signatures:
+- use get_current_sketch() to grab a reference to the running sketch
+- read dynamic variables as attributes on that sketch instance (s.width, s.height)
+- keeps class parameter-free, but there's another way ... [NEXT SLIDE]
 -->
 
 ---
 
-## Translate Directly » Caveat: `# PY5 IMPORTED MODE CODE`
+## Translate Directly » Multi-File Caveat Solution
 
+<highlight><em>mover.py</em></highlight>
 ```python
-# mover.py
 # PY5 IMPORTED MODE CODE
 
 class Mover:
-    def __init__(self):  # no width/height parameters needed
+    def __init__(self):
         self.position = Py5Vector2D(width / 2, height / 2)
 
-    def check_edges(self):
-        if self.position.x > width:  # always the live value
-            self.position.x = 0
+    def show(self):
+        fill(127)
+        circle(self.position.x, self.position.y, 48)
 ```
 <!--
-- caveat for class files living in their own modules: imported mode only injects py5 into the main sketch file -- external modules need this marker comment at the top
-- without it: NameError on circle, fill, width, etc.; with it, no import line or py5 prefixes needed
-- the marker injects the whole py5 api: functions, classes, and the dynamic variables -- width, height, mouse_x, frame_count
-- so class files read width/height as globals, exactly like the p5.js originals -- no passing them through constructors
-- the injected names are live values, not snapshots at import time
-- this is how the py5 port keeps its class files line-for-line with the book's
+- use the # PY5 IMPORTED MODE CODE marker at the top (case-insensitive)
+- no constructor workarounds needed -- keeps multi-file sketches line-for-line with the book
+- signals py5's import hook to transform this module just like the main sketch
+- injects the full py5 api: classes, drawing functions, and live dynamic variables (width, height, mouse_x)
+- if you forget both imports and the marker, py5's NameError explicitly reminds you to add it
+-->
+
+---
+
+<!--
+_backgroundColor: black
+_paginate: false
+_class: lead
+-->
+<i style="font-family:monospace;font-size:0.9em">
+NameError: The name "Py5Vector2D" is not defined. Your Sketch is also running in Imported Mode. If the code throwing this exception was imported into your main py5 Sketch code, please ensure the py5 Imported Mode marker "# PY5 IMPORTED MODE CODE" has been properly added to the module.
+</i>
+<!--
+- this is how i actually discovered this solution -- how useful!
 -->
 
 ---
@@ -569,7 +573,10 @@ color: var(--color-background)
 ```javascript
 // p5.js -- outer variables just work
 let position;
-function draw() { position.add(velocity); }
+
+function draw() { 
+    position.add(velocity);
+}
 ```
 ```python
 # py5 -- assignment needs an explicit declaration
@@ -580,17 +587,16 @@ def draw():
 <!--
 - javascript closures reassign outer variables freely
 - python requires global for reassignment in setup() / draw()
-- the single most common porting error: forgetting global, getting UnboundLocalError
-- alternative designs: wrap state in a class, or mutate objects instead of reassigning
 -->
 
 ---
 
-## Rethink Logic » No `preload()`
+## Rethink Logic » No preload()
 
 ```javascript
 // p5.js -- assets load asynchronously before setup()
 let img;
+
 function preload() {
   img = loadImage('texture.png');
 }
@@ -603,32 +609,9 @@ def setup():
     img = load_image('texture.png')
 ```
 <!--
-- the browser can't block, so p5.js needs preload() / callbacks for assets
-- python blocks happily: load_image() returns the finished image, preload() disappears
+- the browser can't pause and wait for files, so p5.js needs preload() / callbacks for assets
+- py5 is happily: load_image() returns the finished image, preload() disappears
 - same theme returns at full scale in the ml5 » scikit-learn slide: async is the deepest rethink
--->
-
----
-
-## Rethink Logic » Deleting While Iterating
-
-```javascript
-// p5.js -- loop backward to splice safely
-for (let i = particles.length - 1; i >= 0; i--) {
-  particles[i].run();
-  if (particles[i].isDead()) particles.splice(i, 1);
-}
-```
-```python
-# py5 -- same backward-loop technique works ...
-for i in range(len(particles) - 1, -1, -1):
-    particles[i].run()
-    if particles[i].dead:
-        del particles[i]
-```
-<!--
-- the particle systems chapter's central trick carries over directly
-- but python has a nicer answer -- hold that thought for the simplify section
 -->
 
 ---
@@ -742,7 +725,7 @@ class Brain:
         # ... w_ho, b_o ...
 
     def forward(self, inputs):
-        h = np.tanh(self.w_ih @ x + self.b_h)
+        h = np.tanh(self.w_ih @ inputs + self.b_h)
         return (self.w_ho @ h + self.b_o).tolist()
 ```
 <!--
@@ -756,7 +739,7 @@ class Brain:
 
 # Simplify Code
 <!-- 
-backgroundColor: darkred
+backgroundColor: darkslategray
 color: var(--color-background)
 -->
 
@@ -805,7 +788,29 @@ training = [
 
 ---
 
-## Simplify Code » Filtering Particles
+## Simplify Code » Backward Filter
+
+```javascript
+// p5.js -- loop backward to splice safely
+for (let i = particles.length - 1; i >= 0; i--) {
+  particles[i].run();
+  if (particles[i].isDead()) particles.splice(i, 1);
+}
+```
+```python
+# py5 -- same backward-loop technique works ...
+for i in range(len(particles) - 1, -1, -1):
+    particles[i].run()
+    if particles[i].dead: del particles[i]
+```
+<!--
+- the particle systems chapter's central trick carries over directly
+- but python has a nicer answer ... [NEXT SLIDE]
+-->
+
+---
+
+## Simplify Code » Backward Filter Simpler
 
 ```javascript
 // p5.js -- backward loop + splice
@@ -816,6 +821,10 @@ for (let i = particles.length - 1; i >= 0; i--) {
 ```python
 # py5 -- rebuild the list declaratively
 self.particles = [p for p in self.particles if not p.dead]
+...
+# computed property -- accessed as particle.dead (no parentheses).
+    @property
+    def dead(self) -> bool:
 ```
 <!--
 - the chapter 4 index-juggling disappears entirely
