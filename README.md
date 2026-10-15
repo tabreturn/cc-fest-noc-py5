@@ -36,7 +36,7 @@ It's also listed under the book's [Additional Resources chapter](https://natureo
 Install Marp (one-time):
 
 ```bash
-cd style_marp && npm install
+cd marp_style && npm install
 ```
 
 Live preview (watch + presenter view):

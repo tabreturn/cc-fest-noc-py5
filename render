@@ -8,7 +8,7 @@ set -euo pipefail
 
 REPO=$(cd "$(dirname "$0")" && pwd)
 
-DECK="$REPO/marp--noc_py5_slides/deck.md"
+DECK="$REPO/marp_slides/deck.md"
 if [ $# -ge 1 ] && [ "${1:-}" != "--pdf" ]; then
   if [ -f "$1" ]; then
     DECK=$1
@@ -30,7 +30,7 @@ fi
 # Concatenate theme + embedded fonts into a single CSS file (Marp does not
 # follow relative @imports, so this cat step is unavoidable).
 THEME=/tmp/torrensuni-marp.css
-cat "$REPO/style_marp/marp-base.css" "$REPO/style_marp/marp-fonts.css" > "$THEME"
+cat "$REPO/marp_style/marp-base.css" "$REPO/marp_style/marp-fonts.css" > "$THEME"
 
 # Default flags = live preview; override by passing your own after the deck
 BASE=$(basename "$DECK" .md)
@@ -41,10 +41,10 @@ else
   [ ${#ARGS[@]} -eq 0 ] && ARGS=(-w -p --html)
 fi
 
-# Prefer a global marp; fall back to the repo-local install in style_marp/.
+# Prefer a global marp; fall back to the repo-local install in marp_style/.
 if ! command -v marp >/dev/null 2>&1; then
-  LOCAL_MARP="$REPO/style_marp/node_modules/.bin/marp"
-  [ -x "$LOCAL_MARP" ] || { echo "marp not found; run: npm install (in style_marp/)" >&2; exit 1; }
+  LOCAL_MARP="$REPO/marp_style/node_modules/.bin/marp"
+  [ -x "$LOCAL_MARP" ] || { echo "marp not found; run: npm install (in marp_style/)" >&2; exit 1; }
   export PATH="$(dirname "$LOCAL_MARP"):$PATH"
 fi
 
