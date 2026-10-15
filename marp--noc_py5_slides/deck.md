@@ -12,7 +12,7 @@ _color: var(--color-background)
 -->
 <!--
 - a session exploring how the nature of code (p5.js) translates into python using py5
-- three threads: what translates directly, what needs rethinking (library substitution), and where python simplifies things
+- three porting threads: translate directly, rethink logic, simplify code
 -->
 
 ---
@@ -35,8 +35,8 @@ _paginate: false
 <!--
 - note this is the 2nd edition (no starch press)
 - show of hands: who has worked through any nature of code chapters?
-- for anybody unfamiliar: the book builds up from simple random walks to physics to neural networks & neuroevolution
-- as audience likely knows, this is js-based
+- for anybody unfamiliar: the book builds up from simple random walks to vectors to physics to neural networks & neuroevolution
+- as audience likely knows, this is (p5.)js-based
 -->
 
 ---
@@ -47,6 +47,9 @@ _paginate: false
 -->
 ![bg 70%](intro--01-js-pythos.svg)
 > https://py5coding.org
+<!--
+- in order to port from javascript to python ... [NEXT SLIDE]
+-->
 
 ---
 
@@ -56,6 +59,9 @@ _paginate: false
 -->
 ![bg 70%](intro--02-p5js-py5.svg)
 > https://py5coding.org
+<!--
+- i opted to use py5 as a processing framework
+-->
 
 ---
 
@@ -65,19 +71,32 @@ _paginate: false
 -->
 ![bg 70%](intro--py5.png)
 > https://py5coding.org
+<!--
+- for those who are unfamiliar with py5, find out more at py5coding.org
+-->
 
 ---
 
-## Introduction » Installation
+## Introduction  » py5 Features
+* <highlight>Modern Python:</highlight> Full Python 3.x+ support
+* <highlight>Processing Engine:</highlight> Fast Java graphics backend via JPype
+* <highlight>Java Bridge:</highlight> Can load and use many existing Java Processing libraries
+* <highlight>Data Science Ready:</highlight> Native integration with NumPy, Pandas
+* <highlight>Any Editor:</highlight> Works in Jupyter Notebooks, VS Code, ...
+* <highlight>Fast Pixels:</highlight> Vectorized pixel manipulation using NumPy arrays
+* <highlight>Flexible Modes:</highlight> Choose Imported (beginner), Module, or Class
 
-* Standard Python script (VS Code, PyCharm, terminal, ...)
-* Jupyter Notebook
-* Thonny IDE + py5 plugin
+---
+
+## Introduction » Run py5
+* <highlight>Standard Python script:</highlight> VS Code, PyCharm, terminal, ...
+* <highlight>Jupyter Notebook:</highlight> Via standard ipykernel, or py5 kernel
+* <highlight>Thonny-py5mode:</highlight> Thonny IDE + py5 plugin 🠄
 <!--
 - discuss pros/cons of each:
 - standard -- any editor; requires manual environment/pip setup
-- jupyter -- notebook format mixing different cells; perhaps not your style
-- thonny -- familiar to legacy processing users; not 'browser' based
+- jupyter -- notebook format mixing different cells (good for teaching?); perhaps not your style
+- thonny -- familiar to legacy processing users; feels 'dedicated'; perhaps not your style
 -->
 
 ---
@@ -88,6 +107,29 @@ _paginate: false
 -->
 ![bg 70%](setup--01-thonny.org.png)
 > https://thonny.org
+
+---
+
+## Introduction » Thonny Features
+- <highlight>Beginner-Focused:</highlight> Minimal, uncluttered interface designed for learning
+- <highlight>Bundled Python:</highlight> Includes a built-in Python 3 runtime
+- <highlight>Cross-Platform:</highlight> Runs seamlessly on Linux, macOS, Windows
+- <highlight>Fully Portable:</highlight> Runs directly from a USB drive without admin rights
+- <highlight>Several Neat Panels:</highlight> Interactive shell, plotter, outline, and more
+
+---
+
+## Introduction » Thonny-py5mode Installation
+*A plugin that turns the Thonny IDE into a Python 3 replacement for the original Processing IDE.*
+<br /><hr />
+<highlight>Process</highlight><br />
+
+1. Install Thonny
+2. Add plugin
+<!--
+- recall that thonny-py5mode uses py5
+- note that processing.py is no longer supported in processing (since version 4), and is python 2
+-->
 
 ---
 
