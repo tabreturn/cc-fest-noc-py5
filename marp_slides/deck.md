@@ -12,7 +12,7 @@ _color: var(--color-background)
 -->
 <!--
 - a session exploring how the nature of code (p5.js) translates into python using py5
-- three porting threads: translate directly, rethink logic, simplify code
+- three porting themes: translate directly, rethink logic, simplify code
 -->
 
 ---
@@ -35,8 +35,8 @@ _paginate: false
 <!--
 - note this is the 2nd edition (no starch press)
 - show of hands: who has worked through any nature of code chapters?
-- for anybody unfamiliar: the book builds up from simple random walks to vectors to physics to neural networks & neuroevolution
-- as audience likely knows, this is (p5.)js-based
+- for anybody unfamiliar: the book builds up from simple random walks to vectors to physics to neural networks & neuroevolution, and everything between
+- as audience likely knows, this book is (p5.)js-based ... [NEXT SLIDE]
 -->
 
 ---
@@ -48,7 +48,7 @@ _paginate: false
 ![bg 70%](intro--01-js-pythos.svg)
 > https://py5coding.org
 <!--
-- in order to port from javascript to python ... [NEXT SLIDE]
+- and in order to port from javascript to python ... [NEXT SLIDE]
 -->
 
 ---
@@ -60,7 +60,8 @@ _paginate: false
 ![bg 70%](intro--02-p5js-py5.svg)
 > https://py5coding.org
 <!--
-- i opted to use py5 as a processing framework
+- i opted to use py5 as a python processing framework
+- of course, there are other solutions (processing.py, p5, pyp5js, a few others), each with its pros/cons
 -->
 
 ---
@@ -78,20 +79,21 @@ _paginate: false
 ---
 
 ## Introduction  » py5 Features
-* <highlight>Modern Python:</highlight> Full Python 3.x+ support
-* <highlight>Processing Engine:</highlight> Fast Java graphics backend via JPype
-* <highlight>Java Bridge:</highlight> Can load and use many existing Java Processing libraries
-* <highlight>Data Science Ready:</highlight> Native integration with NumPy, Pandas
-* <highlight>Any Editor:</highlight> Works in Jupyter Notebooks, VS Code, ...
-* <highlight>Fast Pixels:</highlight> Vectorized pixel manipulation using NumPy arrays
-* <highlight>Flexible Modes:</highlight> Choose Imported (beginner), Module, or Class
+* <highlight>Modern Python:</highlight> Full Python 3 support, including C-extension libraries,  
+  including native integration with NumPy, Pillow, Shapely, etc.
+* <highlight>Processing Engine:</highlight> Java Processing graphics backend via JPype,  
+  and can load and use many existing Java Processing libraries
+* <highlight>Any Editor:</highlight> Works in Jupyter Notebooks, VS Code, etc.  
+  with flexible modes: static & imported (beginner), module, or class
+* <highlight>Fun Features to explore:</highlight> pixel manipulation using NumPy arrays,  
+  live coding, Matplotlib, Shapely geometries, Pandas/Polars etc.
 
 ---
 
 ## Introduction » Run py5
-* <highlight>Standard Python script:</highlight> VS Code, PyCharm, terminal, ...
+* <highlight>Standard Python script:</highlight> VS Code, PyCharm, terminal, etc.
 * <highlight>Jupyter Notebook:</highlight> Via standard ipykernel, or py5 kernel
-* <highlight>Thonny-py5mode:</highlight> Thonny IDE + py5 plugin 🠄
+* <highlight>Thonny-py5mode:</highlight> Thonny IDE + py5 plugin <span style="color:orange;font-weight:bold">🠄</style>
 <!--
 - discuss pros/cons of each:
 - standard -- any editor; requires manual environment/pip setup
@@ -107,20 +109,28 @@ _paginate: false
 -->
 ![bg 70%](setup--01-thonny.org.png)
 > https://thonny.org
+<!--
+- find out more at thonny.org 
+- features include ... [NEXT SLIDE]
+-->
 
 ---
 
 ## Introduction » Thonny Features
 - <highlight>Beginner-Focused:</highlight> Minimal, uncluttered interface designed for learning
 - <highlight>Bundled Python:</highlight> Includes a built-in Python 3 runtime
-- <highlight>Cross-Platform:</highlight> Runs seamlessly on Linux, macOS, Windows
+- <highlight>Cross-Platform:</highlight> Runs on Linux, macOS, Windows
 - <highlight>Fully Portable:</highlight> Runs directly from a USB drive without admin rights
 - <highlight>Several Neat Panels:</highlight> Interactive shell, plotter, outline, and more
+<!--
+- but thonny won't handle py5 natively ...
+- so this is where the thonny-py5mode plugin enters the picture ... [NEXT SLIDE]
+-->
 
 ---
 
 ## Introduction » Thonny-py5mode Installation
-*A plugin that turns the Thonny IDE into a Python 3 replacement for the original Processing IDE.*
+*A plugin that turns the Thonny IDE into a Python 3 ~~shameless ripoff~~ replacement for the original Processing IDE.*
 <br /><hr />
 <highlight>Process</highlight><br />
 
@@ -138,6 +148,9 @@ _backgroundColor: #000
 _paginate: false
 -->
 ![bg 50%](setup--02-thonny-install.png)
+<!--
+- this appears upon downloading and running the first time
+-->
 
 ---
 
@@ -146,6 +159,9 @@ _backgroundColor: #000
 _paginate: false
 -->
 ![bg 50%](setup--03-thonny-1st-launch.png)
+<!--
+- note the simple application layout
+-->
 
 ---
 
@@ -199,9 +215,10 @@ _paginate: false
 - you don't *have to use* imported mode, but this means:
 - no import line(s) required
 - no py5. prefix for every method
-- so, matches* traditional processing and p5.js syntax
-- easier porting (to py5)
 - more beginner-friendly
+- so, largely matches traditional processing and p5.js syntax
+- easier porting (to py5)
+- (so, basically, it's more like processing!)
 -->
 
 ---
@@ -213,6 +230,7 @@ _paginate: false
 ![bg 50%](setup--09-thonny-activate-jdk.png)
 <!--
 - if java is not detected, it'll download and install a local version
+- (recall that py5 is running on java processing)
 --->
 
 ---
@@ -222,6 +240,9 @@ _backgroundColor: #000
 _paginate: false
 -->
 ![bg 50%](setup--10-thonny-apply-settings.png)
+<!--
+- optional step to apply processing colour scheme and few other settings
+-->
 
 ---
 
@@ -239,7 +260,7 @@ _paginate: false
 -->
 ![bg 50%](setup--12-thonny-run.png)
 <!--
-- just like processing, it has a static mode
+- just like processing, it has a static mode (not available in p5.js?)
 - (of course, there are setup and draw functions for animated sketches)
 -->
 
@@ -251,6 +272,7 @@ _paginate: false
 -->
 ![bg 50%](setup--13-change-mode.png)
 <!--
+- (unchecking imported mode in the graphic)
 - as i mentioned earlier, there is also a module mode
 -->
 
@@ -273,11 +295,13 @@ paginate: true
 backgroundColor: maroon
 color: var(--color-background)
 -->
+<!--
+- to understand the porting process and requirements, a short py5 intro is necessary
+-->
 
 ---
 
-## py5 » Simple Sketch
-
+## py5 » Simple (Animated) Sketch
 ```python
 def setup():
     size(640, 240)
@@ -286,40 +310,39 @@ def draw():
     background(255)
     circle(mouse_x, mouse_y, 48)
 ```
+<!--
+- perhaps a few things stand out: the python syntax, java-style size function instead of p5.js createCanvas
+- (but more on the differences to come)
+-->
 
 ---
 
 ## py5 » Porting Approach
-
-- **Translate Directly** -- vectors, forces, particles: near line-for-line
-- **Rethink Logic** -- p5.js-exclusive libraries need substitutes
-- **Simplify Code** -- Python idioms shorten the original JavaScript
+<highlight>Translate Directly</highlight>  
+Vectors, forces, particles: *near* line-for-line
 
 ---
 
-## py5 » Substitutions
+## py5 » Porting Approach
+<highlight>Translate Directly</highlight>  
+Vectors, forces, particles: *near* line-for-line
 
-<table style="width:100%;border:none">
-  <tr style="background-color:rgba(0,0,0,0.3)">
-    <td style="border-color:rgba(0,0,0,0.3)">p5.js (original)</td>
-    <td style="border-color:rgba(0,0,0,0.3)">Python (py5)</td>
-  </tr>
-  <tr style="background:none">
-    <td style="border-color:rgba(0,0,0,0.3);background:transparent">Matter.js</td>
-    <td style="border-color:rgba(0,0,0,0.3);background:transparent">Pymunk (Chipmunk2D wrapper)</td>
-  </tr>
-  <tr>
-    <td style="border-color:rgba(0,0,0,0.3);background:transparent">toxiclibs.js</td>
-    <td style="border-color:rgba(0,0,0,0.3);background:transparent">Toxiclibs *Java* library via the JVM</td>
-  </tr>
-  <tr style="background:none">
-    <td style="border-color:rgba(0,0,0,0.3);background:transparent">ml5.js</td>
-    <td style="border-color:rgba(0,0,0,0.3);background:transparent">scikit-learn / bespoke NumPy</td>
-  </tr>
-</table>
+<highlight>Rethink Logic</highlight>
+Exclusive p5.js libraries that require substitutes
 
 ---
 
+## py5 » Porting Approach
+<highlight>Translate Directly</highlight>  
+Vectors, forces, particles: *near* line-for-line
+
+<highlight>Rethink Logic</highlight>
+Exclusive p5.js libraries that require substitutes
+
+<highlight>Simplify Code</highlight>
+Python idioms to potentially shorten (simplify?) the original JavaScript
+
+---
 
 # Translate Directly
 <!-- 
@@ -330,7 +353,6 @@ color: var(--color-background)
 ---
 
 ## Translate Directly » py5 Naming
-
 ```javascript
 // p5.js
 function setup() {
@@ -350,7 +372,7 @@ def draw():
 
 ---
 
-## Translate Directly » Renames to Know
+## Translate Directly » Key Renames to Know
 
 <table style="width:100%;border:none">
   <tr style="background-color:rgba(0,0,0,0.3)">
@@ -366,7 +388,7 @@ def draw():
   <tr>
     <td style="border-color:rgba(0,0,0,0.3);background:transparent"><code>map()</code></td>
     <td style="border-color:rgba(0,0,0,0.3);background:transparent"><code>remap()</code></td>
-    <td style="border-color:rgba(0,0,0,0.3);background:transparent"><code>map()</code> Python built-in</td>
+    <td style="border-color:rgba(0,0,0,0.3);background:transparent">Python built-in</td>
   </tr>
   <tr style="background:none">
     <td style="border-color:rgba(0,0,0,0.3);background:transparent"><code>mouseX</code>, <code>strokeWeight()</code></td>
@@ -374,14 +396,25 @@ def draw():
     <td style="border-color:rgba(0,0,0,0.3);background:transparent">snake_case</td>
   </tr>
   <tr style="background:none">
+    <td style="border-color:rgba(0,0,0,0.3);background:transparent">NOC <code>next</code>, <code>len</code> variables</td>
+    <td style="border-color:rgba(0,0,0,0.3);background:transparent"><code>next_</code>, <code>len_</code></td>
+    <td style="border-color:rgba(0,0,0,0.3);background:transparent">Python built-in</td>
+  </tr>
+  <tr style="background:none">
     <td style="border-color:rgba(0,0,0,0.3);background:transparent"><code>createVector</code></td>
     <td style="border-color:rgba(0,0,0,0.3);background:transparent"><code>Py5Vector2D</code>, <code>Py5Vector3D</code></td>
     <td style="border-color:rgba(0,0,0,0.3);background:transparent">real class</td>
   </tr>
+  <tr style="background:none">
+    <td style="border-color:rgba(0,0,0,0.3);background:transparent"><code>random()</code></td>
+    <td style="border-color:rgba(0,0,0,0.3);background:transparent">also <code>random()</code></td>
+    <td style="border-color:rgba(0,0,0,0.3);background:transparent">py5 built-in</td>
+  </tr>
 </table>
 <!--
 - mostly everything is a mechanical camelCase-to-snake_case conversion
-- renaming cuts the other way too: js names like next and len shadow python builtins -- the port uses next_, len_
+- renaming cuts the other way too: noc names like next and len shadow python builtins -- the port uses next_, len_
+- (js uses array.length; its next method is not a global function)
 -->
 
 ---
@@ -393,17 +426,17 @@ def draw():
 let x = random(width);
 let g = randomGaussian(0, 1);
 let n = noise(xoff);
+let coinflip = floor(random(2)); // 0 or 1
 ```
 ```python
 # py5
-x = random(width)             # py5's own, not the random module
+x = random(width)  # py5's own, not the random module
 g = random_gaussian(0, 1)
 n = noise(xoff)
+coinflip = random_int(1)  # inclusive: returns 0 or 1
 ```
 <!--
 - chapter 0 ports near line-for-line: random(), random_gaussian(), noise() all exist in py5
-- gotcha: py5's random() shadows python's random module -- don't import random on top of it
-- bonus helper: random_int() -- a coin flip without floor(random(2))
 - noise() is processing's perlin implementation, not p5.js's -- same character, different exact values
 - py5 also offers os_noise() (opensimplex) as an alternative
 -->
