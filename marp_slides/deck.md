@@ -117,11 +117,11 @@ _paginate: false
 ---
 
 ## Introduction » Thonny Features
-- <highlight>Beginner-Focused:</highlight> Minimal, uncluttered interface designed for learning
-- <highlight>Bundled Python:</highlight> Includes a built-in Python 3 runtime
-- <highlight>Cross-Platform:</highlight> Runs on Linux, macOS, Windows
-- <highlight>Fully Portable:</highlight> Runs directly from a USB drive without admin rights
-- <highlight>Several Neat Panels:</highlight> Interactive shell, plotter, outline, and more
+* <highlight>Beginner-Focused:</highlight> Minimal, uncluttered interface designed for learning
+* <highlight>Bundled Python:</highlight> Includes a built-in Python 3 runtime
+* <highlight>Cross-Platform:</highlight> Runs on Linux, macOS, Windows
+* <highlight>Fully Portable:</highlight> Runs directly from a USB drive without admin rights
+* <highlight>Several Neat Panels:</highlight> Interactive shell, plotter, outline, and more
 <!--
 - but thonny won't handle py5 natively ...
 - so this is where the thonny-py5mode plugin enters the picture ... [NEXT SLIDE]
@@ -131,7 +131,7 @@ _paginate: false
 
 ## Introduction » Thonny-py5mode Installation
 *A plugin that turns the Thonny IDE into a Python 3 ~~shameless ripoff~~ replacement for the original Processing IDE.*
-<br /><hr />
+<br /><hr style="color:rgba(255,255,255,0.3)" />
 <highlight>Process</highlight><br />
 
 1. Install Thonny
@@ -362,6 +362,9 @@ function draw() {
   circle(mouseX, mouseY, 48);
 }
 ```
+
+<hr style="color:rgba(255,255,255,0.3)" />
+
 ```python
 # py5
 def setup():
@@ -374,7 +377,7 @@ def draw():
 
 ## Translate Directly » Key Renames to Know
 
-<table style="width:100%;border:none">
+<table style="width:100%;border:none;font-size:0.9em">
   <tr style="background-color:rgba(0,0,0,0.3)">
     <td style="border-color:rgba(0,0,0,0.3)">p5.js</td>
     <td style="border-color:rgba(0,0,0,0.3)">py5</td>
@@ -428,6 +431,9 @@ let g = randomGaussian(0, 1);
 let n = noise(xoff);
 let coinflip = floor(random(2));  // 0 or 1
 ```
+
+<hr style="color:rgba(255,255,255,0.3)" />
+
 ```python
 # py5
 x = random(width)                 # py5's own, not the random module
@@ -453,6 +459,9 @@ position.add(velocity);
 print(position.mag());
 position.setMag(10);
 ```
+
+<hr style="color:rgba(255,255,255,0.3)" />
+
 ```python
 # py5 
 position = Py5Vector2D(100, 100)
@@ -578,6 +587,9 @@ function draw() {
     position.add(velocity);
 }
 ```
+
+<hr style="color:rgba(255,255,255,0.3)" />
+
 ```python
 # py5 -- assignment needs an explicit declaration
 def draw():
@@ -601,6 +613,9 @@ function preload() {
   img = loadImage('texture.png');
 }
 ```
+
+<hr style="color:rgba(255,255,255,0.3)" />
+
 ```python
 # py5 -- loading is synchronous: just do it in setup()
 def setup():
@@ -754,6 +769,9 @@ force.normalize();
 force.mult(strength);
 mover.acceleration.add(force);
 ```
+
+<hr style="color:rgba(255,255,255,0.3)" />
+
 ```python
 # py5 -- reads like the maths
 force = (attractor - mover).norm * strength
@@ -775,6 +793,9 @@ for (let i = 0; i < 2000; i++) {
   training.push([random(-width/2, width/2), random(-height/2, height/2), 1]);
 }
 ```
+
+<hr style="color:rgba(255,255,255,0.3)" />
+
 ```python
 # py5
 training = [
@@ -797,6 +818,9 @@ for (let i = particles.length - 1; i >= 0; i--) {
   if (particles[i].isDead()) particles.splice(i, 1);
 }
 ```
+
+<hr style="color:rgba(255,255,255,0.3)" />
+
 ```python
 # py5 -- same backward-loop technique works ...
 for i in range(len(particles) - 1, -1, -1):
@@ -818,6 +842,9 @@ for (let i = particles.length - 1; i >= 0; i--) {
   if (particles[i].isDead()) particles.splice(i, 1);
 }
 ```
+
+<hr style="color:rgba(255,255,255,0.3)" />
+
 ```python
 # py5 -- rebuild the list declaratively
 self.particles = [p for p in self.particles if not p.dead]
@@ -840,6 +867,9 @@ self.particles = [p for p in self.particles if not p.dead]
 // p5.js
 let nextgen = cells.slice();
 ```
+
+<hr style="color:rgba(255,255,255,0.3)" />
+
 ```python
 # py5
 next_gen = cells[:]                # copy a generation
