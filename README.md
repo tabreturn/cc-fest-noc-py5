@@ -4,10 +4,7 @@
 
 ![event banner](banner.png)
 
-
-## Slides
-
-[deck.pdf](https://raw.githubusercontent.com/tabreturn/cc-fest-noc-py5/main/deck.pdf)
+---
 
 
 ## About
@@ -21,11 +18,17 @@ The complete py5 implementations of Daniel Shiffman's "The Nature of Code" (2024
 It's also listed under the book's [Additional Resources chapter](https://natureofcode.com/resources), among ports to other languages.
 
 
-## Repository Structure
+## Slide-Deck
 
-* `marp--noc_py5_slides/` -- the slide-deck source (Marp markdown + images)
-* `style_marp/` -- the Marp theme and setup instructions
-* `render` -- helper script to preview or export the deck
+[deck.pdf](https://raw.githubusercontent.com/tabreturn/cc-fest-noc-py5/main/deck.pdf)
+
+
+## Useful Resources
+
+* [py5 website](https://py5coding.org/)
+* [py5 reference](https://py5coding.org/reference)
+* [py5 cheatsheet](https://raw.githubusercontent.com/tabreturn/processing.py-cheat-sheet/master/py5/py5_cc.pdf)
+* [The Nature of Code](https://natureofcode.com/) by Daniel Shiffman (free online)
 
 
 ## Rendering the Deck
@@ -47,12 +50,4 @@ Export PDF (to `deck.pdf` in the repository root):
 ```bash
 ./render --pdf
 ```
-
-
-## Useful Resources
-
-* [py5 website](https://py5coding.org/)
-* [py5 reference](https://py5coding.org/reference)
-* [py5 cheatsheet](https://raw.githubusercontent.com/tabreturn/processing.py-cheat-sheet/master/py5/py5_cc.pdf)
-* [The Nature of Code](https://natureofcode.com/) by Daniel Shiffman (free online)
 

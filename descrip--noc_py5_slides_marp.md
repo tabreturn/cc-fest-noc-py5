@@ -1,1 +1,0 @@
-A session exploring how The Nature of Code (p5.js) translates into Python using py5. We'll look at which techniques translate directly, which require rethinking (particularly where substituting libraries is unavoidable), and where Python offers opportunities to simplify the original JavaScript implementation.
