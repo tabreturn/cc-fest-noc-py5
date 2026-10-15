@@ -35,7 +35,7 @@ cat "$REPO/style_marp/marp-base.css" "$REPO/style_marp/marp-fonts.css" > "$THEME
 # Default flags = live preview; override by passing your own after the deck
 BASE=$(basename "$DECK" .md)
 if [ "$PDF" -eq 1 ]; then
-  ARGS=(--pdf --html --allow-local-files -o "$BASE.pdf" "$@")
+  ARGS=(--pdf --html --allow-local-files -o "$REPO/$BASE.pdf" "$@")
 else
   ARGS=("$@")
   [ ${#ARGS[@]} -eq 0 ] && ARGS=(-w -p --html)
