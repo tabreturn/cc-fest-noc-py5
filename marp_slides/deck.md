@@ -8,6 +8,7 @@ notes: ...
 
 # ***The Nature of Code, but Python***
 <!-- 
+_backgroundColor: black
 _backgroundImage: "url(title_bg.png)"
 _backgroundSize: "cover"
 _color: var(--color-background)
@@ -62,7 +63,7 @@ and nobody at the Nature of Code party notices.*
 ---
 
 <!--
-_backgroundColor: #EEE
+_backgroundColor: black
 _paginate: false
 -->
 ![bg 120%](sample--ch00.png)
@@ -71,7 +72,7 @@ _paginate: false
 ---
 
 <!--
-_backgroundColor: #EEE
+_backgroundColor: black
 _paginate: false
 -->
 ![bg 120%](sample--ch01.png)
@@ -80,7 +81,7 @@ _paginate: false
 ---
 
 <!--
-_backgroundColor: #EEE
+_backgroundColor: black
 _paginate: false
 -->
 ![bg 120%](sample--ch02.png)
@@ -89,7 +90,7 @@ _paginate: false
 ---
 
 <!--
-_backgroundColor: #EEE
+_backgroundColor: black
 _paginate: false
 -->
 ![bg 120%](sample--ch03.png)
@@ -98,7 +99,7 @@ _paginate: false
 ---
 
 <!--
-_backgroundColor: #EEE
+_backgroundColor: black
 _paginate: false
 -->
 ![bg 120%](sample--ch04.png)
@@ -107,7 +108,7 @@ _paginate: false
 ---
 
 <!--
-_backgroundColor: #EEE
+_backgroundColor: black
 _paginate: false
 -->
 ![bg 120%](sample--ch05.png)
@@ -116,7 +117,7 @@ _paginate: false
 ---
 
 <!--
-_backgroundColor: #EEE
+_backgroundColor: black
 _paginate: false
 -->
 ![bg 120%](sample--ch06.png)
@@ -125,7 +126,7 @@ _paginate: false
 ---
 
 <!--
-_backgroundColor: #EEE
+_backgroundColor: black
 _paginate: false
 -->
 ![bg 120%](sample--ch07.png)
@@ -134,7 +135,7 @@ _paginate: false
 ---
 
 <!--
-_backgroundColor: #EEE
+_backgroundColor: black
 _paginate: false
 -->
 ![bg 120%](sample--ch08.png)
@@ -143,7 +144,7 @@ _paginate: false
 ---
 
 <!--
-_backgroundColor: #EEE
+_backgroundColor: black
 _paginate: false
 -->
 ![bg 120%](sample--ch09.png)
@@ -152,7 +153,7 @@ _paginate: false
 ---
 
 <!--
-_backgroundColor: #EEE
+_backgroundColor: black
 _paginate: false
 -->
 ![bg 120%](sample--ch10.png)
@@ -161,7 +162,7 @@ _paginate: false
 ---
 
 <!--
-_backgroundColor: #EEE
+_backgroundColor: black
 _paginate: false
 -->
 ![bg 120%](sample--ch11.png)
@@ -809,7 +810,7 @@ engine.add(box_body, box_shape)
 
 ---
 
-## 2. Rethink Logic » Pymunk Calibration
+## 2. Rethink Logic » Matter.js Calibration
 <highlight><em>pymunk_constants.py</em></highlight>
 ```python
 """
@@ -831,7 +832,7 @@ SCALE_FRICTION = SCALE_TIME
 
 ---
 
-## 2. Rethink Logic » Toxiclibs
+## 2. Rethink Logic » Toxiclibs (jars)
 Simply skip the JS Toxiclibs port and use the Java original.
 <br /><hr style="color:rgba(255,255,255,0.3)" />
 ```python
@@ -854,23 +855,40 @@ from toxi.physics2d.behaviors import GravityBehavior2D
 
 ---
 
-## 2. Rethink Logic » Wrapping Java Objects
+## 2. Rethink Logic » Wrapping Toxiclibs Objects
+
+<smaller>
+
+```javascript
+// p5.js -- subclass the Java particle directly
+class Particle extends VerletParticle2D {
+  constructor(x, y, r) {
+    super(x, y); this.r = r; 
+  }
+  show() {
+    circle(this.x, this.y, this.r * 2);
+  }
+}
+physics.addParticle(particle);  // pass the object itself
+```
+
+<hr style="color:rgba(255,255,255,0.3)" />
 
 ```python
-class Particle:  # Python wrapper around a Java VerletParticle2D
-
+# py5 -- wrap the Java particle via composition
+class Particle:
     def __init__(self, x, y, r):
         self.p = VerletParticle2D(x, y)  # underlying Java object
+    def show(self):
+        circle(self.p.x(), self.p.y(), self.r * 2)
 
-# Must add everything to the world -- pass the Java object via .p
-physics.addParticle(particle_1.p)
-physics.addSpring(VerletSpring2D(particle_1.p, particle_2.p, length, strength))
+physics.addParticle(particle.p)  # pass the Java object via .p
 ```
+
+</smaller>
 <!--
-- python classes wrap java particles to add show() methods
+- in py5 composition is cleaner than subclassing java classes
 - gotcha: the world needs the underlying java object, not the wrapper
-- the book subclasses VerletParticle2D in js; in py5 composition is cleaner than subclassing java classes
-- forgetting .p is the classic error here -- type mismatch at the java boundary
 -->
 
 ---
