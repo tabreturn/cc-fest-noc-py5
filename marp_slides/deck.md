@@ -503,7 +503,6 @@ def draw():
 ---
 
 ## 1. Translate Directly » Key Renames to Know
-
 <table style="width:100%;border:none;font-size:0.9em">
   <tr style="background-color:rgba(0,0,0,0.3)">
     <td style="border-color:rgba(0,0,0,0.3)">p5.js</td>
@@ -787,21 +786,40 @@ def setup():
 
 ## 2. Rethink Logic » Matter.js to Pymunk
 
+<smaller>
+
+```javascript
+// p5.js
+const { Engine, Bodies, Composite } = Matter;
+
+let engine = Engine.create();
+
+let box = Bodies.rectangle(100, 100, 50, 50, { friction: 0.01 });
+Composite.add(engine.world, box);
+```
+
+</smaller>
+
+<hr style="color:rgba(255,255,255,0.3)" />
+
+<smaller>
+
 ```python
+# py5 -- pymunk separates Body (physics) from Shape (collision skin)
 from pymunk import Body, moment_for_box, Poly, Space
 
-engine = Space()                           # world/engine = Space
-engine.gravity = (0, 1.0 * SCALE_GRAVITY)  # calibration constant
+engine = Space()
+engine.gravity = (0, 1.0 * SCALE_GRAVITY)
 
-# Pymunk separates Body (physics) from Shape (collision skin)
 box_body = Body(mass, moment_for_box(mass, (w, h)))
 box_body.position = (100, 100)
 box_shape = Poly.create_box(box_body, (w, h))
 box_shape.friction = 0.01 * SCALE_FRICTION
-box_shape.elasticity = 0.75
 engine.add(box_body, box_shape)
-...
 ```
+
+</smaller>
+
 <!--
 - matter.js is javascript-only -- pymunk is a chipmunk2d wrapper
 - pymunk separates body (physics) from shape (collision skin); multiple shapes can attach to one body
@@ -855,12 +873,12 @@ from toxi.physics2d.behaviors import GravityBehavior2D
 
 ---
 
-## 2. Rethink Logic » Wrapping Toxiclibs Objects
+## 2. Rethink Logic » Toxiclibs Composition
 
 <smaller>
 
 ```javascript
-// p5.js -- subclass the Java particle directly
+// p5.js -- subclass the toxiclibs.js particle directly
 class Particle extends VerletParticle2D {
   constructor(x, y, r) {
     super(x, y); this.r = r; 
@@ -872,13 +890,18 @@ class Particle extends VerletParticle2D {
 physics.addParticle(particle);  // pass the object itself
 ```
 
+</smaller>
+
 <hr style="color:rgba(255,255,255,0.3)" />
+
+<smaller>
 
 ```python
 # py5 -- wrap the Java particle via composition
 class Particle:
     def __init__(self, x, y, r):
         self.p = VerletParticle2D(x, y)  # underlying Java object
+        self.r = r
     def show(self):
         circle(self.p.x(), self.p.y(), self.r * 2)
 
@@ -886,6 +909,7 @@ physics.addParticle(particle.p)  # pass the Java object via .p
 ```
 
 </smaller>
+
 <!--
 - in py5 composition is cleaner than subclassing java classes
 - gotcha: the world needs the underlying java object, not the wrapper
@@ -893,43 +917,90 @@ physics.addParticle(particle.p)  # pass the Java object via .p
 
 ---
 
-## 2. Rethink Logic » Machine Learning: ml5.js » scikit-learn
+## 2. Rethink Logic » ml5.js to scikit-learn
+
+```javascript
+// p5.js -- async training with callbacks
+classifier = ml5.neuralNetwork({ task: "classification" });
+classifier.addData(inputs, outputs);
+classifier.train({ epochs: 200 }, finishedTraining);
+// ...must wait for finishedTraining() callback
+```
+
+<hr style="color:rgba(255,255,255,0.3)" />
 
 ```python
+# py5 -- synchronous: trains before the window opens
 from sklearn.neural_network import MLPClassifier
 
 classifier = MLPClassifier(hidden_layer_sizes=(16,), max_iter=2500)
-classifier.fit(inputs, outputs)   # trains before setup() runs
+classifier.fit(inputs, outputs)  # blocks until done
 ```
 <!--
-- ml5.js trains asynchronously with callbacks (whenTrained, ...)
-- scikit-learn trains synchronously, before the window opens
-- callbacks disappear entirely; the shell replaces ml5's visor
-- async is the deepest rethink: the browser cannot block, python happily can
-- ch10's perceptron is hand-rolled in both languages -- that one is a direct port
+- ml5.js trains asynchronously with callbacks; scikit-learn trains synchronously
+- (before the window opens)
+- py5 shell replaces ml5's visor ... [NEXT SLIDE]
 -->
 
 ---
 
-## 2. Rethink Logic » Neuroevolution: a Bespoke NumPy Brain
+<!--
+_backgroundColor: #EEE
+_paginate: false
+-->
+![bg 70%](other--10.02.png)
+> 10.02 (gesture_classifier.py)
+<!--
+- so instead of the visor running upon sketch execute ... [NEXT SLIDE]
+-->
+
+---
+
+<!--
+_backgroundColor: black
+_paginate: false
+-->
+![bg 120%](sample--ch10.png)
+> 10.02 (gesture_classifier.py)
+<!--
+- ... you see the training in the shell complete, then the sketch window launches
+- (note: i added some of this hud stuff to a few sketches)
+-->
+
+---
+
+## 2. Rethink Logic » Neuroevolution (NumPy Brain)
+<highlight><em>brain_ne.py</em></highlight>
+
+<smaller>
 
 ```python
+# ml5.js-style neural network functionality implemented with bespoke class.
+
+import numpy as np
+
 class Brain:
     """Vectorized NumPy brain with GA helpers."""
 
-    def __init__(self, inputs, outputs, hidden=8):
-        self.w_ih = _rng.uniform(-1.0, 1.0, (hidden, inputs))
-        self.b_h  = _rng.uniform(-1.0, 1.0, (hidden,))
-        # ... w_ho, b_o ...
+    def __init__(self, inputs: int, outputs: int, hidden: int = 8) -> None:
+        ...
 
-    def forward(self, inputs):
-        h = np.tanh(self.w_ih @ inputs + self.b_h)
-        return (self.w_ho @ h + self.b_o).tolist()
+    def forward(self, inputs: list[float]) -> list[float]:
+        ...
+
+    def classify_binary(self, inputs: list[float], threshold: float = 0.5) -> bool:
+        ...
+
+    def predict_continuous_01(self, inputs: list[float]) -> list[float]:
+        ...
 ```
+
+</smaller>
+
 <!--
-- ml5's neuroEvolution has no drop-in substitute -- write one (~50 lines)
-- forward pass is two matrix multiplications -- numpy's @ operator
-- ga helpers (crossover, mutate) operate directly on the weight arrays
+- ml5's neuroEvolution has no drop-in substitute -- wrote one (~50 lines)
+- snippet lists classify and prediction methods
+- but also has ga helpers (crossover, mutate) that operate directly on the weight arrays
 - sometimes "rethinking" means realising the library was hiding very little
 -->
 
@@ -937,7 +1008,7 @@ class Brain:
 
 # 3. Simplify Code
 <!-- 
-backgroundColor: darkslategray
+backgroundColor: darkolivegreen
 color: var(--color-background)
 -->
 
@@ -956,13 +1027,12 @@ mover.acceleration.add(force);
 <hr style="color:rgba(255,255,255,0.3)" />
 
 ```python
-# py5 -- reads like the maths
+# py5 -- reads more like the maths
 force = (attractor - mover).norm * strength
 mover.acceleration += force
 ```
 <!--
-- the vector algebra chapters are where python shines brightest
-- normalize as .norm property, magnitude as .mag -- expressions compose naturally
+- of course, you can chain the .normalize() and .mult() methods
 -->
 
 ---
@@ -987,7 +1057,9 @@ training = [
 ]
 ```
 <!--
-- training-data setup and particle spawning collapse into single expressions
+- of course, this is a pure python vs js thing (no py5 addition)
+- also, the _ throwaway variable makes it immediately index not used
+- i used comprehensions pretty much wherever i could
 -->
 
 ---
@@ -1010,71 +1082,104 @@ for i in range(len(particles) - 1, -1, -1):
     particles[i].run()
     if particles[i].dead: del particles[i]
 ```
+
+<br />
+<i>If you're wondering about <code>.dead</code> ...</i>
+
 <!--
-- the particle systems chapter's central trick carries over directly
-- but python has a nicer answer ... [NEXT SLIDE]
+- ... but i kept reverse loops, although there is arguably a more pythonic way
 -->
 
 ---
 
-## 3. Simplify Code » Backward Filter Simpler
+## 3. Simplify Code » Properties over Methods
 
 ```javascript
-// p5.js -- backward loop + splice
-for (let i = particles.length - 1; i >= 0; i--) {
-  if (particles[i].isDead()) particles.splice(i, 1);
+// p5.js -- isDead() is a method call
+if (particles[i].isDead()) particles.splice(i, 1);
+...
+isDead() {
+  return (this.lifespan < 0.0);
 }
 ```
 
 <hr style="color:rgba(255,255,255,0.3)" />
 
 ```python
-# py5 -- rebuild the list declaratively
-self.particles = [p for p in self.particles if not p.dead]
+# py5 -- .dead is a @property (no parentheses)
+if particles[i].dead: del particles[i]
 ...
-# computed property -- accessed as particle.dead (no parentheses).
-    @property
-    def dead(self) -> bool:
+@property
+def dead(self) -> bool:
+    return self.lifespan < 0.0
 ```
 <!--
-- the chapter 4 index-juggling disappears entirely
-- callback to the rethinking section: the backward loop works, but this is the pythonic answer
-- isDead() method becomes a dead property -- same attribute-over-method pattern as .mag
+- isDead() becomes a .dead @property -- attribute access rather than a method call
+- same pattern as py5's .mag and .heading on vectors
+- (i didn't do this too extensively, as it felt like quite a deviation)
 -->
 
 ---
 
-## 3. Simplify Code » Slices: Cellular Automata
+## 3. Simplify Code » Slice Notation
 
 ```javascript
 // p5.js
+cells = new Array(floor(width / w)).fill(0);
 let nextgen = cells.slice();
+
+let [left, me, right] = cells.slice(i - 1, i + 2);
 ```
 
 <hr style="color:rgba(255,255,255,0.3)" />
 
 ```python
 # py5
-next_gen = cells[:]                # copy a generation
-cells = [0] * (width // W)         # build a row of dead cells
-left, me, right = cells[i - 1], cells[i], cells[i + 1]
+cells = [0] * (width // w)
+next_gen = cells[:]
+
+left, me, right = cells[i - 1 : i + 2]
 ```
 <!--
-- list building, copying, and unpacking shrink the wolfram ca code
-- tuple unpacking makes the neighborhood read like the book's prose
+- note that i've further adapted/condensed the book's js here
+- list building, slice copying, and slice unpacking shrink the wolfram cellular automata code
 - integer division // avoids the js-style floor() call for grid math
+- again, this is python vs js stuff (not py5)
 -->
 
 ---
 
 ## 3. Simplify Code » Small Quality-of-Life Wins
-
-- `position += velocity` -- augmented assignment on vectors
-- `Particle(*self.origin)` -- vectors unpack as iterables
-- `10_000` -- readable numeric literals
-- Type hints: `def step(self) -> None:` documents intent
-- No `let` / `const` / semicolons / braces
-- Synchronous ML training -- no callback pyramids
+<table style="width:100%;border:none;font-size:0.9em">
+  <tr style="background-color:rgba(0,0,0,0.3)">
+    <td style="border-color:rgba(0,0,0,0.3)">Python / py5</td>
+    <td style="border-color:rgba(0,0,0,0.3)">Why</td>
+  </tr>
+  <tr style="background:none">
+    <td style="border-color:rgba(0,0,0,0.3);background:transparent"><code>position += velocity</code></td>
+    <td style="border-color:rgba(0,0,0,0.3);background:transparent">Augmented assignment on vectors</td>
+  </tr>
+  <tr style="background:none">
+    <td style="border-color:rgba(0,0,0,0.3);background:transparent"><code>Particle(*self.origin)</code></td>
+    <td style="border-color:rgba(0,0,0,0.3);background:transparent">Vectors unpack as iterables</td>
+  </tr>
+  <tr style="background:none">
+    <td style="border-color:rgba(0,0,0,0.3);background:transparent"><code>10_000</code></td>
+    <td style="border-color:rgba(0,0,0,0.3);background:transparent">Readable numeric literals</td>
+  </tr>
+  <tr style="background:none">
+    <td style="border-color:rgba(0,0,0,0.3);background:transparent"><code>def step(self) -&gt; None:</code></td>
+    <td style="border-color:rgba(0,0,0,0.3);background:transparent">Type hints document intent</td>
+  </tr>
+  <tr style="background:none">
+    <td style="border-color:rgba(0,0,0,0.3);background:transparent">No <code>let</code> / <code>const</code> / <code>;</code> / <code>{}</code></td>
+    <td style="border-color:rgba(0,0,0,0.3);background:transparent">Less syntactic noise</td>
+  </tr>
+  <tr style="background:none">
+    <td style="border-color:rgba(0,0,0,0.3);background:transparent">Synchronous ML training</td>
+    <td style="border-color:rgba(0,0,0,0.3);background:transparent">No callback pyramids</td>
+  </tr>
+</table>
 <!--
 - none of these are transformative alone; together the ports are consistently shorter
 - type hints are optional but the py5 port uses them throughout
@@ -1099,6 +1204,7 @@ _paginate: false
 <!--
 - the book is free to read online; the additional resources page lists ports to other languages
 - the py5 port lives alongside pygame, openframeworks, and go ports
+- clicking link goes to ... [NEXT SLIDE]
 -->
 
 ---
@@ -1110,7 +1216,7 @@ _paginate: false
 ![bg 70%](materials--02-repo-1.png)
 > https://github.com/tabreturn/py5-nature-of-code
 <!--
-- the complete py5 port: all chapters, built with thonny-py5mode
+- scroll ... [NEXT SLIDE]
 -->
 
 ---
@@ -1121,6 +1227,9 @@ _paginate: false
 -->
 ![bg 70%](materials--03-repo-2.png)
 > https://github.com/tabreturn/py5-nature-of-code
+<!--
+- scroll ... [NEXT SLIDE]
+-->
 
 ---
 
@@ -1136,6 +1245,17 @@ _paginate: false
 
 ---
 
+## Materials  » Jupyter py5 Port
+by @hollygrimm
+
+<https://github.com/hollygrimm/py5-noc-book-2>
+
+<hr style="color:rgba(255,255,255,0.3)" />
+
+*Jupyter notebooks (`.ipynb`) · Module mode (`import py5`) · Pymunk for all of ch06; no Toxiclibs · similar scikit-learn + hand-rolled NumPy approach.*
+
+---
+
 <!--
 _backgroundColor: #EEE
 _paginate: false
@@ -1143,7 +1263,7 @@ _paginate: false
 ![bg 70%](materials--05-jupyter-holly.png)
 > https://github.com/hollygrimm/py5-noc-book-2
 <!--
-- if notebooks are your style: all 12 chapters as runnable jupyter notebooks, full book text plus code
+- if notebooks are your style: all 12 chapters as runnable jupyter notebooks ... [NEXT SLIDE]
 -->
 
 ---
@@ -1156,41 +1276,6 @@ _paginate: false
 > https://github.com/hollygrimm/py5-noc-book-2
 <!--
 - book prose, figures, and editable py5 cells interleaved per chapter
--->
-
----
-
-# Takeaways
-<!-- 
-backgroundColor: darkolivegreen
-color: var(--color-background)
--->
-
----
-
-## Takeaways
-
-- **Most of the book translates directly** -- randomness, vectors, forces, oscillation, particles, steering, CA, fractals, and GA are near line-for-line
-- **Renames to remember**: `map()` » `remap()`, camelCase » snake_case, `.mag()` » `.mag`
-- **The `global` keyword** is the most common porting stumble
-- **Library substitution**: Pymunk for Matter.js, original Java Toxiclibs via the JVM, scikit-learn / NumPy for ml5.js
-- **Python often simplifies**: operator overloading, comprehensions, slices
-- **AI drafts, you verify**: great at renaming passes, weak on library judgement and visual correctness
-<!--
-- the ecosystem swap is the interesting part: sometimes a wrapper (pymunk), sometimes the original library (toxiclibs), sometimes diy (numpy brain)
--->
-
----
-
-## Try It Yourself
-
-- Install **Thonny-py5mode**, activate *py5 » Imported mode*
-- Port a chapter 1 or 2 sketch by hand -- it's mostly renaming
-- Compare against the complete **py5-nature-of-code** port
-- Read the book free online: natureofcode.com
-<!--
-- suggested exercise: port example 2.6 (attraction) and then simplify it with operator overloading
-- the py5 port's readme links every sketch to its p5.js editor original
 -->
 
 ---
