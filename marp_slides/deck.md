@@ -784,60 +784,72 @@ def setup():
 
 ---
 
-## 2. Rethink Logic » Physics: Matter.js » Pymunk
+## 2. Rethink Logic » Matter.js to Pymunk
 
 ```python
 from pymunk import Body, moment_for_box, Poly, Space
 
 engine = Space()                           # world/engine = Space
 engine.gravity = (0, 1.0 * SCALE_GRAVITY)  # calibration constant
+
+# Pymunk separates Body (physics) from Shape (collision skin)
+box_body = Body(mass, moment_for_box(mass, (w, h)))
+box_body.position = (100, 100)
+box_shape = Poly.create_box(box_body, (w, h))
+box_shape.friction = 0.01 * SCALE_FRICTION
+box_shape.elasticity = 0.75
+engine.add(box_body, box_shape)
+...
 ```
 <!--
 - matter.js is javascript-only -- pymunk is a chipmunk2d wrapper
 - pymunk separates body (physics) from shape (collision skin); multiple shapes can attach to one body
-- no render module: matter.js bundles a renderer; with pymunk the sketch reads body positions and draws shapes manually in draw()
+- no render module: matter.js bundles a renderer; this is only for a sketch or two, so i added a few extra lines to get py5 rendering
 -->
 
 ---
 
-## 2. Rethink Logic » Pymunk: Calibrating Two Engines
-
+## 2. Rethink Logic » Pymunk Calibration
+<highlight><em>pymunk_constants.py</em></highlight>
 ```python
 """
-Since the Matter.js and Pymunk engines use different units
-and solvers, these values provide an *approximate* conversion
-for matching visual behavior.
+Since the Matter.js and Pymunk engines use different units and solvers,
+these values provide an *approximate* conversion for matching visual behavior.
 """
+
 SCALE_GRAVITY = 900.0
 FPS = 60.0
+DT = 1.0 / FPS
 SCALE_TIME = FPS
 SCALE_VELOCITY = SCALE_TIME
+SCALE_ANG_VELOCITY = SCALE_TIME
 SCALE_FRICTION = SCALE_TIME
 ```
 <!--
-- same simulation concepts, different units and solvers
-- constants make py5 sketches visually match the book's figures
-- this is the real cost of substitution: the api maps, but behavior needs tuning
-- gravity of 1 in matter.js is roughly 900 in pymunk's units at 60fps
+- i just imported this file as required
 -->
 
 ---
 
-## 2. Rethink Logic » Toxiclibs: Skip the Port, Use the Original
-
+## 2. Rethink Logic » Toxiclibs
+Simply skip the JS Toxiclibs port and use the Java original.
+<br /><hr style="color:rgba(255,255,255,0.3)" />
 ```python
-# The actual Java library, imported straight into Python
-from toxi.geom import Vec2D, Rect
-from toxi.physics2d import VerletPhysics2D, VerletSpring2D
+"""
+NOTE:
+Examples 6.11 through 6.15 (end of chapter) use the Toxiclibs Java libraries.
+For details on py5's integration with Processing (Java) libraries, see:
+https://py5coding.org/how_tos/use_processing_libraries.html
+"""
 
-physics = VerletPhysics2D()
-physics.setWorldBounds(Rect(0, 0, width, height))
+from toxi.geom import Vec2D, Rect
+from toxi.physics2d import VerletPhysics2D, VerletParticle2D, VerletSpring2D
+from toxi.physics2d.behaviors import GravityBehavior2D
 ```
 <!--
 - toxiclibs.js is a port of a java library -- py5 runs on the jvm
 - so python can use the original java toxiclibs directly
-- this is the surprise win of the jvm: no substitute needed, just the upstream library
-- tradeoff: camelCase java naming leaks through (setWorldBounds, addBehavior) inside snake_case python code
+- just drop a jars directory alongside the sketch
 -->
 
 ---
