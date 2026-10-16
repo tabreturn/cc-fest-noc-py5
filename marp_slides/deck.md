@@ -170,7 +170,7 @@ _paginate: false
 
 ---
 
-## Introduction  » Setup
+## Introduction » Setup
 *JS to Python, and IDE configuration ...*
 <!--
 - [NEXT SLIDE]
@@ -216,7 +216,7 @@ _paginate: false
 
 ---
 
-## Introduction  » py5 Features
+## Introduction » py5 Features
 * <highlight>Modern Python:</highlight> full Python 3 support, including C-extension libraries,  
   including native integration with NumPy, Pillow, Shapely, etc.
 * <highlight>Processing engine:</highlight> Java Processing graphics backend via JPype,  
@@ -600,7 +600,7 @@ print(position.mag)
 position.mag = 10
 ```
 <!--
-- (i really like what jim schmitz with vectors, because noc uses a lot of vectors!)
+- (i really like what jim schmitz did with vectors, because noc uses a lot of vectors!)
 - createVector() needs setup() (unless using new p5.Vector); Py5Vector is a standalone class usable anywhere
 - p5.Vector mutates via method calls: add(), sub(), mult() ...
 - Py5Vector overloads the arithmetic operators (+, +=, *=) -- more on this in the simplify section
@@ -779,7 +779,7 @@ def setup():
 ```
 <!--
 - the browser can't pause and wait for files, so p5.js needs preload() / callbacks for assets
-- py5 is happily: load_image() returns the finished image, preload() disappears
+- python happily blocks: load_image() returns the finished image, preload() disappears
 -->
 
 ---
@@ -1058,7 +1058,7 @@ training = [
 ```
 <!--
 - of course, this is a pure python vs js thing (no py5 addition)
-- also, the _ throwaway variable makes it immediately index not used
+- also, the _ throwaway variable makes it immediately clear the index isn't used
 - i used comprehensions pretty much wherever i could
 -->
 
@@ -1245,7 +1245,7 @@ _paginate: false
 
 ---
 
-## Materials  » Jupyter py5 Port
+## Materials » Jupyter py5 Port
 by @hollygrimm
 
 <https://github.com/hollygrimm/py5-noc-book-2>
