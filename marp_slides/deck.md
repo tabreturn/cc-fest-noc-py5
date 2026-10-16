@@ -1,7 +1,9 @@
 ---
+
 marp: true
 theme: TorrensUni
 notes: ...
+
 ---
 
 # ***The Nature of Code, but Python***
@@ -12,7 +14,6 @@ _color: var(--color-background)
 -->
 <!--
 - a session exploring how the nature of code (p5.js) translates into python using py5
-- three porting themes: translate directly, rethink logic, simplify code
 -->
 
 ---
@@ -42,13 +43,149 @@ _paginate: false
 ---
 
 <!--
+_backgroundColor: black
+_class: lead
+_color: var(--color-background)
+_paginate: false
+-->
+***Think:**<br />Python wearing a Processing costume,   
+and nobody at the Nature of Code party notices.*
+<!--
+- the next few slides give a quick sense of the final outcome (a sample from each chapter)
+- as we flip through, notice three things:
+- 1. the environment (thonny) looks nearly identical to the classic processing ide
+- 2. look closer at the editor, though, and it's pure python
+- 3. the code reads almost line-for-line like the p5.js originals, producing identical visual results
+- ... [NEXT SLIDES]
+-->
+
+---
+
+<!--
+_backgroundColor: #EEE
+_paginate: false
+-->
+![bg 120%](sample--ch00.png)
+> 00.06 (perlin_noise_walker.py)
+
+---
+
+<!--
+_backgroundColor: #EEE
+_paginate: false
+-->
+![bg 120%](sample--ch01.png)
+> 01.04 (vector_multiplication.py)
+
+---
+
+<!--
+_backgroundColor: #EEE
+_paginate: false
+-->
+![bg 120%](sample--ch02.png)
+> 02.07 (attraction_many_movers.py)
+
+---
+
+<!--
+_backgroundColor: #EEE
+_paginate: false
+-->
+![bg 120%](sample--ch03.png)
+> 03.09 (the_wave.py)
+
+---
+
+<!--
+_backgroundColor: #EEE
+_paginate: false
+-->
+![bg 120%](sample--ch04.png)
+> 04.09 (additive_smoke_system.py)
+
+---
+
+<!--
+_backgroundColor: #EEE
+_paginate: false
+-->
+![bg 120%](sample--ch05.png)
+> 05.12 (flocking_bin_lattice.py)
+
+---
+
+<!--
+_backgroundColor: #EEE
+_paginate: false
+-->
+![bg 120%](sample--ch06.png)
+> 06.12 (soft_swing_pendulum.py)
+
+---
+
+<!--
+_backgroundColor: #EEE
+_paginate: false
+-->
+![bg 120%](sample--ch07.png)
+> 07.03 (oop_game_of_life.py)
+
+---
+
+<!--
+_backgroundColor: #EEE
+_paginate: false
+-->
+![bg 120%](sample--ch08.png)
+> 08.06 (recursive_tree.py)
+
+---
+
+<!--
+_backgroundColor: #EEE
+_paginate: false
+-->
+![bg 120%](sample--ch09.png)
+> 09.04 (interactive_selection.py)
+
+---
+
+<!--
+_backgroundColor: #EEE
+_paginate: false
+-->
+![bg 120%](sample--ch10.png)
+> 10.02 (gesture_classifier.py)
+
+---
+
+<!--
+_backgroundColor: #EEE
+_paginate: false
+-->
+![bg 120%](sample--ch11.png)
+> 11.04 (neuroevolutionary_steering.py)
+
+---
+
+## Introduction  » Setup
+*JS to Python, and IDE configuration ...*
+<!--
+- [NEXT SLIDE]
+-->
+
+---
+
+<!--
 _backgroundColor: #EEE
 _paginate: false
 -->
 ![bg 70%](intro--01-js-pythos.svg)
 > https://py5coding.org
 <!--
-- and in order to port from javascript to python ... [NEXT SLIDE]
+- really, both languages can do the same things, but it's libraries/frameworks that matter
+- so, in order to port from javascript to python ... [NEXT SLIDE]
 -->
 
 ---
@@ -61,7 +198,7 @@ _paginate: false
 > https://py5coding.org
 <!--
 - i opted to use py5 as a python processing framework
-- of course, there are other solutions (processing.py, p5, pyp5js, a few others), each with its pros/cons
+- of course, there are other solutions (processing.py, p5py, pyp5js, a few others), each with its pros/cons
 -->
 
 ---
@@ -79,20 +216,20 @@ _paginate: false
 ---
 
 ## Introduction  » py5 Features
-* <highlight>Modern Python:</highlight> Full Python 3 support, including C-extension libraries,  
+* <highlight>Modern Python:</highlight> full Python 3 support, including C-extension libraries,  
   including native integration with NumPy, Pillow, Shapely, etc.
-* <highlight>Processing Engine:</highlight> Java Processing graphics backend via JPype,  
+* <highlight>Processing engine:</highlight> Java Processing graphics backend via JPype,  
   and can load and use many existing Java Processing libraries
-* <highlight>Any Editor:</highlight> Works in Jupyter Notebooks, VS Code, etc.  
+* <highlight>Any editor:</highlight> works in Jupyter Notebooks, VS Code, etc.  
   with flexible modes: static & imported (beginner), module, or class
-* <highlight>Fun Features to explore:</highlight> pixel manipulation using NumPy arrays,  
+* <highlight>Fun features to explore:</highlight> pixel manipulation using NumPy arrays,  
   live coding, Matplotlib, Shapely geometries, Pandas/Polars etc.
 
 ---
 
 ## Introduction » Run py5
-* <highlight>Standard Python script:</highlight> VS Code, PyCharm, terminal, etc.
-* <highlight>Jupyter Notebook:</highlight> Via standard ipykernel, or py5 kernel
+* <highlight>Standard python script:</highlight> VS Code, PyCharm, terminal, etc.
+* <highlight>Jupyter notebook:</highlight> via standard ipykernel, or py5 kernel
 * <highlight>Thonny-py5mode:</highlight> Thonny IDE + py5 plugin <span style="color:orange;font-weight:bold">🠄</span>
 <!--
 - discuss pros/cons of each:
@@ -117,11 +254,11 @@ _paginate: false
 ---
 
 ## Introduction » Thonny Features
-* <highlight>Beginner-Focused:</highlight> Minimal, uncluttered interface designed for learning
-* <highlight>Bundled Python:</highlight> Includes a built-in Python 3 runtime
-* <highlight>Cross-Platform:</highlight> Runs on Linux, macOS, Windows
-* <highlight>Fully Portable:</highlight> Runs directly from a USB drive without admin rights
-* <highlight>Several Neat Panels:</highlight> Interactive shell, plotter, outline, and more
+* <highlight>Beginner-focused:</highlight> minimal, uncluttered interface designed for learning
+* <highlight>Bundled Python:</highlight> includes a built-in Python 3 runtime
+* <highlight>Cross-platform:</highlight> runs on Linux, macOS, Windows
+* <highlight>Fully portable:</highlight> runs directly from a USB drive without admin rights
+* <highlight>Several neat panels:</highlight> interactive shell, plotter, outline, and more
 <!--
 - but thonny won't handle py5 natively ...
 - so this is where the thonny-py5mode plugin enters the picture ... [NEXT SLIDE]
@@ -134,11 +271,10 @@ _paginate: false
 <br /><hr style="color:rgba(255,255,255,0.3)" />
 <highlight>Process</highlight><br />
 
-1. Install Thonny
+1. Download and run Thonny
 2. Add plugin
 <!--
-- recall that thonny-py5mode uses py5
-- note that processing.py is no longer supported in processing (since version 4), and is python 2
+- it's easy ... [NEXT SLIDE]
 -->
 
 ---
@@ -149,7 +285,7 @@ _paginate: false
 -->
 ![bg 50%](setup--02-thonny-install.png)
 <!--
-- this appears upon downloading and running the first time
+- this appears upon downloading thonny and running the first time
 -->
 
 ---
@@ -229,8 +365,8 @@ _paginate: false
 -->
 ![bg 50%](setup--09-thonny-activate-jdk.png)
 <!--
-- if java is not detected, it'll download and install a local version
 - (recall that py5 is running on java processing)
+- if java is not detected, it'll download and install a local version
 -->
 
 ---
@@ -301,50 +437,40 @@ color: var(--color-background)
 
 ---
 
-## py5 » Simple (Animated) Sketch
-```python
-def setup():
-    size(640, 240)
-
-def draw():
-    background(255)
-    circle(mouse_x, mouse_y, 48)
-```
-<!--
-- perhaps a few things stand out: the python syntax, java-style size() function instead of p5.js createCanvas()
-- (but more on the differences to come)
--->
+## py5 » Porting Approach
+<b style="font-family:monospace;font-weight:bold">1</b>
+<highlight>Translate Directly</highlight>  
+<smaller>Vectors, forces, particles: *near* line-for-line</smaller>
 
 ---
 
 ## py5 » Porting Approach
+<b style="font-family:monospace;font-weight:bold">1</b>
 <highlight>Translate Directly</highlight>  
-Vectors, forces, particles: *near* line-for-line
+<smaller>Vectors, forces, particles: *near* line-for-line</smaller>
 
----
-
-## py5 » Porting Approach
-<highlight>Translate Directly</highlight>  
-Vectors, forces, particles: *near* line-for-line
-
+<b style="font-family:monospace;font-weight:bold">2</b>
 <highlight>Rethink Logic</highlight>
-Exclusive p5.js libraries that require substitutes
+<smaller>Language differences and library substitutions</smaller>
 
 ---
 
 ## py5 » Porting Approach
+<b style="font-family:monospace;font-weight:bold">1</b>
 <highlight>Translate Directly</highlight>  
-Vectors, forces, particles: *near* line-for-line
+<smaller>Vectors, forces, particles: *near* line-for-line</smaller>
 
+<b style="font-family:monospace;font-weight:bold">2</b>
 <highlight>Rethink Logic</highlight>
-Exclusive p5.js libraries that require substitutes
+<smaller>Language differences and library substitutions</smaller>
 
+<b style="font-family:monospace;font-weight:bold">3</b>
 <highlight>Simplify Code</highlight>
-Python idioms to potentially shorten (simplify?) the original JavaScript
+<smaller>Python idioms to potentially simplify JS</smaller>
 
 ---
 
-# Translate Directly
+# 1. Translate Directly
 <!-- 
 backgroundColor: indigo
 color: var(--color-background)
@@ -352,7 +478,7 @@ color: var(--color-background)
 
 ---
 
-## Translate Directly » py5 Naming
+## 1. Translate Directly » py5 Naming
 ```javascript
 // p5.js
 function setup() {
@@ -375,7 +501,7 @@ def draw():
 
 ---
 
-## Translate Directly » Key Renames to Know
+## 1. Translate Directly » Key Renames to Know
 
 <table style="width:100%;border:none;font-size:0.9em">
   <tr style="background-color:rgba(0,0,0,0.3)">
@@ -388,15 +514,15 @@ def draw():
     <td style="border-color:rgba(0,0,0,0.3);background:transparent"><code>size()</code></td>
     <td style="border-color:rgba(0,0,0,0.3);background:transparent">Processing Java</td>
   </tr>
-  <tr>
-    <td style="border-color:rgba(0,0,0,0.3);background:transparent"><code>map()</code></td>
-    <td style="border-color:rgba(0,0,0,0.3);background:transparent"><code>remap()</code></td>
-    <td style="border-color:rgba(0,0,0,0.3);background:transparent">Python built-in</td>
-  </tr>
   <tr style="background:none">
     <td style="border-color:rgba(0,0,0,0.3);background:transparent"><code>mouseX</code>, <code>strokeWeight()</code></td>
     <td style="border-color:rgba(0,0,0,0.3);background:transparent"><code>mouse_x</code>, <code>stroke_weight()</code></td>
     <td style="border-color:rgba(0,0,0,0.3);background:transparent">snake_case</td>
+  </tr>
+  <tr>
+    <td style="border-color:rgba(0,0,0,0.3);background:transparent"><code>map()</code></td>
+    <td style="border-color:rgba(0,0,0,0.3);background:transparent"><code>remap()</code></td>
+    <td style="border-color:rgba(0,0,0,0.3);background:transparent">Python built-in</td>
   </tr>
   <tr style="background:none">
     <td style="border-color:rgba(0,0,0,0.3);background:transparent">NOC <code>next</code>, <code>len</code> variables</td>
@@ -413,6 +539,9 @@ def draw():
     <td style="border-color:rgba(0,0,0,0.3);background:transparent">also <code>random()</code></td>
     <td style="border-color:rgba(0,0,0,0.3);background:transparent">py5 built-in</td>
   </tr>
+  <tr style="background:none">
+    <td colspan="3" style="border-color:rgba(0,0,0,0.3);background:transparent"><i>More on slides to come ...</i></td>
+  </tr>
 </table>
 <!--
 - mostly everything is a mechanical camelCase-to-snake_case conversion
@@ -422,7 +551,7 @@ def draw():
 
 ---
 
-## Translate Directly » Randomness & Noise
+## 1. Translate Directly » Randomness & Noise
 
 ```javascript
 // p5.js
@@ -449,7 +578,7 @@ coinflip = random_int(1)          # inclusive: returns 0 or 1
 
 ---
 
-## Translate Directly » Vector Operations
+## 1. Translate Directly » Vector Operations
 
 ```javascript
 // p5.js
@@ -471,17 +600,41 @@ print(position.mag)
 position.mag = 10
 ```
 <!--
+- (i really like what jim schmitz with vectors, because noc uses a lot of vectors!)
 - createVector() needs setup() (unless using new p5.Vector); Py5Vector is a standalone class usable anywhere
 - p5.Vector mutates via method calls: add(), sub(), mult() ...
 - Py5Vector overloads the arithmetic operators (+, +=, *=) -- more on this in the simplify section
 - p5.js uses getter/setter methods (mag(), setMag()); py5 uses python properties (position.mag = 10)
 - Py5Vector is explicitly sized (Py5Vector2D, Py5Vector3D) and backed by numpy under the hood
-- because noc uses a lot of vectors, i appreciated these changes
 -->
 
 ---
 
-## Translate Directly » Multi-File Caveat
+## 1. Translate Directly » Multi-File Caveat
+
+<highlight><em>sketch.py</em></highlight>
+```python
+from mover import Mover
+...
+
+def setup():
+    ...
+    mover = Mover()
+    ...
+
+def draw():
+    ...
+    mover.show()
+```
+<!--
+- consider a sketch that imports a class from another file (in this case, Mover)
+- imported mode magic only applies to the main sketch.py file -- not the files it imports
+- so how does mover.py access py5 functions and variables? [NEXT SLIDE]
+-->
+
+---
+
+## 1. Translate Directly » Multi-File Solution #1
 
 <highlight><em>mover.py</em></highlight>
 ```python
@@ -498,16 +651,14 @@ class Mover:
         circle(self.position.x, self.position.y, 48)
 ```
 <!--
-- caveat when splitting classes into separate .py files in imported mode:
-- imported mode only auto-injects py5 into the main sketch file
 - without an import in mover.py: NameError on Py5Vector2D, fill, circle, etc.
 - from py5 import * imports functions/classes, but dynamic variables (width, height, mouse_x) fail
-- forces workarounds like passing width/height or calling py5.get_current_sketch()
+- forces workarounds like passing width/height or ... [NEXT SLIDE]
 -->
 
 ---
 
-## Translate Directly » Multi-File Caveat (Alt.)
+## 1. Translate Directly » Multi-File Solution #2
 
 <highlight><em>mover.py</em></highlight>
 ```python
@@ -523,15 +674,14 @@ class Mover:
         circle(self.position.x, self.position.y, 48)
 ```
 <!--
-- alternative workaround without changing constructor signatures:
-- use get_current_sketch() to grab a reference to the running sketch
+- use get_current_sketch() to grab a reference to the running sketch, then --
 - read dynamic variables as attributes on that sketch instance (s.width, s.height)
 - keeps class parameter-free, but there's another way ... [NEXT SLIDE]
 -->
 
 ---
 
-## Translate Directly » Multi-File Caveat Solution
+## 1. Translate Directly » Multi-File Solution #3
 
 <highlight><em>mover.py</em></highlight>
 ```python
@@ -550,15 +700,16 @@ class Mover:
 - no constructor workarounds needed -- keeps multi-file sketches line-for-line with the book
 - signals py5's import hook to transform this module just like the main sketch
 - injects the full py5 api: classes, drawing functions, and live dynamic variables (width, height, mouse_x)
-- if you forget both imports and the marker, py5's NameError explicitly reminds you to add it
+- and if you forget the marker ... [NEXT SLIDE]
 -->
 
 ---
 
 <!--
 _backgroundColor: black
-_paginate: false
 _class: lead
+_color: var(--color-background)
+_paginate: false
 -->
 <i style="font-family:monospace;font-size:0.9em">
 NameError: The name "Py5Vector2D" is not defined. Your Sketch is also running in Imported Mode. If the code throwing this exception was imported into your main py5 Sketch code, please ensure the py5 Imported Mode marker "# PY5 IMPORTED MODE CODE" has been properly added to the module.
@@ -569,15 +720,18 @@ NameError: The name "Py5Vector2D" is not defined. Your Sketch is also running in
 
 ---
 
-# Rethink Logic
+# 2. Rethink Logic
 <!-- 
 backgroundColor: midnightblue
 color: var(--color-background)
 -->
+<!--
+- (exclusive p5.js libraries that require substitutes)
+-->
 
 ---
 
-## Rethink Logic » Scope Is Different
+## 2. Rethink Logic » Scope Is Different
 
 ```javascript
 // p5.js -- outer variables just work
@@ -603,7 +757,7 @@ def draw():
 
 ---
 
-## Rethink Logic » No preload()
+## 2. Rethink Logic » No preload()
 
 ```javascript
 // p5.js -- assets load asynchronously before setup()
@@ -626,18 +780,17 @@ def setup():
 <!--
 - the browser can't pause and wait for files, so p5.js needs preload() / callbacks for assets
 - py5 is happily: load_image() returns the finished image, preload() disappears
-- same theme returns at full scale in the ml5 » scikit-learn slide: async is the deepest rethink
 -->
 
 ---
 
-## Rethink Logic » Physics: Matter.js » Pymunk
+## 2. Rethink Logic » Physics: Matter.js » Pymunk
 
 ```python
 from pymunk import Body, moment_for_box, Poly, Space
 
-engine = Space()                          # world/engine = Space
-engine.gravity = (0, 1.0 * SCALE_GRAVITY) # calibration constant
+engine = Space()                           # world/engine = Space
+engine.gravity = (0, 1.0 * SCALE_GRAVITY)  # calibration constant
 ```
 <!--
 - matter.js is javascript-only -- pymunk is a chipmunk2d wrapper
@@ -647,7 +800,7 @@ engine.gravity = (0, 1.0 * SCALE_GRAVITY) # calibration constant
 
 ---
 
-## Rethink Logic » Pymunk: Calibrating Two Engines
+## 2. Rethink Logic » Pymunk: Calibrating Two Engines
 
 ```python
 """
@@ -670,7 +823,7 @@ SCALE_FRICTION = SCALE_TIME
 
 ---
 
-## Rethink Logic » Toxiclibs: Skip the Port, Use the Original
+## 2. Rethink Logic » Toxiclibs: Skip the Port, Use the Original
 
 ```python
 # The actual Java library, imported straight into Python
@@ -689,7 +842,7 @@ physics.setWorldBounds(Rect(0, 0, width, height))
 
 ---
 
-## Rethink Logic » Wrapping Java Objects
+## 2. Rethink Logic » Wrapping Java Objects
 
 ```python
 class Particle:  # Python wrapper around a Java VerletParticle2D
@@ -710,7 +863,7 @@ physics.addSpring(VerletSpring2D(particle_1.p, particle_2.p, length, strength))
 
 ---
 
-## Rethink Logic » Machine Learning: ml5.js » scikit-learn
+## 2. Rethink Logic » Machine Learning: ml5.js » scikit-learn
 
 ```python
 from sklearn.neural_network import MLPClassifier
@@ -728,7 +881,7 @@ classifier.fit(inputs, outputs)   # trains before setup() runs
 
 ---
 
-## Rethink Logic » Neuroevolution: a Bespoke NumPy Brain
+## 2. Rethink Logic » Neuroevolution: a Bespoke NumPy Brain
 
 ```python
 class Brain:
@@ -752,7 +905,7 @@ class Brain:
 
 ---
 
-# Simplify Code
+# 3. Simplify Code
 <!-- 
 backgroundColor: darkslategray
 color: var(--color-background)
@@ -760,7 +913,7 @@ color: var(--color-background)
 
 ---
 
-## Simplify Code » Operator Overloading
+## 3. Simplify Code » Operator Overloading
 
 ```javascript
 // p5.js -- verbose static/method calls
@@ -784,7 +937,7 @@ mover.acceleration += force
 
 ---
 
-## Simplify Code » Comprehensions
+## 3. Simplify Code » Comprehensions
 
 ```javascript
 // p5.js
@@ -809,7 +962,7 @@ training = [
 
 ---
 
-## Simplify Code » Backward Filter
+## 3. Simplify Code » Backward Filter
 
 ```javascript
 // p5.js -- loop backward to splice safely
@@ -834,7 +987,7 @@ for i in range(len(particles) - 1, -1, -1):
 
 ---
 
-## Simplify Code » Backward Filter Simpler
+## 3. Simplify Code » Backward Filter Simpler
 
 ```javascript
 // p5.js -- backward loop + splice
@@ -861,7 +1014,7 @@ self.particles = [p for p in self.particles if not p.dead]
 
 ---
 
-## Simplify Code » Slices: Cellular Automata
+## 3. Simplify Code » Slices: Cellular Automata
 
 ```javascript
 // p5.js
@@ -884,7 +1037,7 @@ left, me, right = cells[i - 1], cells[i], cells[i + 1]
 
 ---
 
-## Simplify Code » Small Quality-of-Life Wins
+## 3. Simplify Code » Small Quality-of-Life Wins
 
 - `position += velocity` -- augmented assignment on vectors
 - `Particle(*self.origin)` -- vectors unpack as iterables
