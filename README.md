@@ -34,7 +34,9 @@ It's also listed under the book's [Additional Resources chapter](https://natureo
 
 ## Rendering the Deck
 
-Install Marp (one-time):
+**Note:** `marp_style/` is normally a symlink to the shared [marp-style](https://github.com/tabreturn/marp-style) theme repo. If the link is broken on your machine, overwrite it with a real copy -- `rm marp_style && git clone https://github.com/tabreturn/marp-style marp_style` -- then install Marp once with `cd marp_style && npm install`.
+
+Install Marp in the theme repo (one-time):
 
 ```bash
 cd marp_style && npm install

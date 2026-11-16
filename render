@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Render a slide deck with the TorrensUni theme.
+# Render a slide deck with the tabreturn theme.
 # Usage: ./render [deck] [--pdf] [extra marp args...]
 #   deck  = path to a .md file, or a deck folder containing one .md
 # Default args: -w -p --html  (watch + presenter view)
